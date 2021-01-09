@@ -5,6 +5,13 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Weapon from "./page/weapon/";
 import Job from "./page/job/";
+import axios from "axios";
+
+const initAxios = () => {
+    axios.defaults.baseURL = "http://localhost:8081"
+}
+
+initAxios()
 
 ReactDOM.render(
     <React.StrictMode>
@@ -23,3 +30,5 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+
