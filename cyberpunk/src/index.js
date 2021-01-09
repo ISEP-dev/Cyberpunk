@@ -7,6 +7,7 @@ import Weapon from "./page/weapon/";
 import Job from "./page/job/";
 import axios from "axios";
 import Navigation, {tabsEnum} from "./component/navigation";
+import './index.css';
 
 const initAxios = () => {
     axios.defaults.baseURL = "http://localhost:8081"
@@ -15,19 +16,23 @@ const initAxios = () => {
 initAxios()
 
 ReactDOM.render(
-    <React.StrictMode>
-        <Router>
-            <Navigation/>
-            <Switch>
-                <Route path={tabsEnum.JOBS} component={Job}/>
-                <Route path={tabsEnum.WEAPONS} component={Weapon}/>
-                <Route path={tabsEnum.MERCENARIES} component={Merc}/>
-                <Route exact path="/">
-                    <Redirect to={tabsEnum.MERCENARIES}/>
-                </Route>
-            </Switch>
-        </Router>
-    </React.StrictMode>,
+    <main className="main-content h-screen overflow-y-auto">
+        <React.StrictMode>
+            <Router>
+                <Navigation/>
+                <section className="mt-20">
+                    <Switch>
+                        <Route path={tabsEnum.JOBS.path} component={Job}/>
+                        <Route path={tabsEnum.WEAPONS.path} component={Weapon}/>
+                        <Route path={tabsEnum.MERCENARIES.path} component={Merc}/>
+                        <Route path="*">
+                            <Redirect to={tabsEnum.MERCENARIES.path}/>
+                        </Route>
+                    </Switch>
+                </section>
+            </Router>
+        </React.StrictMode>
+    </main>,
     document.getElementById('root')
 );
 
