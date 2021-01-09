@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Merc from './page/merc';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import Weapon from "./page/weapon/";
 import Job from "./page/job/";
 import axios from "axios";
+import Navigation, {tabsEnum} from "./component/navigation";
 
 const initAxios = () => {
     axios.defaults.baseURL = "http://localhost:8081"
@@ -16,10 +17,14 @@ initAxios()
 ReactDOM.render(
     <React.StrictMode>
         <Router>
+            <Navigation/>
             <Switch>
-                <Route path="/job" component={Job}/>
-                <Route path="/weapon" component={Weapon}/>
-                <Route path="/" component={Merc}/>
+                <Route path={tabsEnum.JOBS} component={Job}/>
+                <Route path={tabsEnum.WEAPONS} component={Weapon}/>
+                <Route path={tabsEnum.MERCENARIES} component={Merc}/>
+                <Route exact path="/">
+                    <Redirect to={tabsEnum.MERCENARIES}/>
+                </Route>
             </Switch>
         </Router>
     </React.StrictMode>,
