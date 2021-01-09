@@ -1,6 +1,14 @@
 import Modal from "../../component/Modal";
+import {getAllMercs} from "../../service/merc";
+import {useEffect} from "react";
 
 const Merc = () => {
+
+    useEffect(() => {
+        getAllMercs().then((res) => {
+            console.log(res)
+        })
+    }, [])
 
     const submit = () => {
         console.log("On modal submit example")
