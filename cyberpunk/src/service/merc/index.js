@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const getAllMercs = () => axios.get(`/mercs`)
+export const getAllMercsAsync = () => axios.get(`/mercs`)
 
-export const editMercWeapon = (mercId, weaponId) => axios.put(`/mercs/weapons/${mercId}/${weaponId}`)
+export const updateMercWeaponAsync = (idMerc, idWeapon) => axios.put(`/mercs/weapons`, { idMerc, idWeapon })
 
-export const createNewMerc = (nickname, age) => axios.post(`/mercs/${nickname}/${age}`)
+export const createMercAsync = (nickname, legalAge) => axios.post(`/mercs`, { nickname, legalAge })
