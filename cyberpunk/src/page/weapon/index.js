@@ -1,8 +1,10 @@
-const Weapon = () => {
+import Weapons from "../../component/Modal/Weapons"
 
+const Weapon = () => {
+    console.log("page weapon")
     return (
         <div className="flex">
-            Weapon page
+            <Weapons/>
         </div>
     )
 }
