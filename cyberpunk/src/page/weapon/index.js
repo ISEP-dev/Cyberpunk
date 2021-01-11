@@ -6,7 +6,7 @@ const Weapon = () => {
 
     return (
         <div className="flex">
-            Weapon page
+            <Weapons/>
         </div>
     )
 }
