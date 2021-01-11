@@ -1,21 +1,10 @@
-import Modal from "../../component/Modal";
-import {useEffect, useState} from "react";
-import Weapons from "../../component/Modal/Weapons";
-import {getAllWeapons} from "../../service/weapon";
+import Weapons from "../../component/Modal/Weapons"
 
 const Weapon = () => {
-    const [weapons, setWeapons] = useState([])
-    useEffect(() => {
-        getAllWeapons().then((res) => {
-            let weapon = res.data
-            console.log(weapon)
-            setWeapons(weapon)
-        })
-    }, [])
-
+    console.log("page weapon")
     return (
-        <div>
-            <Weapons weapons = {weapons}/>
+        <div className="flex">
+            <Weapons/>
         </div>
     )
 }
