@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Merc from './page/merc';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import Weapon from "./page/weapon/";
 import Job from "./page/job/";
 import axios from "axios";
+import Navigation, {tabsEnum} from "./component/navigation";
+import './index.css';
 
 const initAxios = () => {
     axios.defaults.baseURL = "http://localhost:8081"
@@ -14,15 +16,23 @@ const initAxios = () => {
 initAxios()
 
 ReactDOM.render(
-    <React.StrictMode>
-        <Router>
-            <Switch>
-                <Route path="/job" component={Job}/>
-                <Route path="/weapon" component={Weapon}/>
-                <Route path="/" component={Merc}/>
-            </Switch>
-        </Router>
-    </React.StrictMode>,
+    <main className="main-content h-screen overflow-y-auto">
+        <React.StrictMode>
+            <Router>
+                <Navigation/>
+                <section className="mt-20">
+                    <Switch>
+                        <Route path={tabsEnum.JOBS.path} component={Job}/>
+                        <Route path={tabsEnum.WEAPONS.path} component={Weapon}/>
+                        <Route path={tabsEnum.MERCENARIES.path} component={Merc}/>
+                        <Route path="*">
+                            <Redirect to={tabsEnum.MERCENARIES.path}/>
+                        </Route>
+                    </Switch>
+                </section>
+            </Router>
+        </React.StrictMode>
+    </main>,
     document.getElementById('root')
 );
 
