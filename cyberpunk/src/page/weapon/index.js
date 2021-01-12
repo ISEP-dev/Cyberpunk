@@ -1,12 +1,11 @@
-import Modal from "../../component/Modal";
 import {useEffect, useState} from "react";
-import Weapons from "../../component/Modal/Weapons";
-import {getAllWeapons} from "../../service/weapon";
+import {getAllWeaponsAsync} from "../../service/weapon";
+import WeaponCard from "../../component/WeaponCard";
 
 const Weapon = () => {
     const [weapons, setWeapons] = useState([])
     useEffect(() => {
-        getAllWeapons().then((res) => {
+        getAllWeaponsAsync().then((res) => {
             let weapon = res.data
             console.log(weapon)
             setWeapons(weapon)
@@ -14,8 +13,10 @@ const Weapon = () => {
     }, [])
 
     return (
-        <div>
-            <Weapons weapons = {weapons}/>
+        <div className="flex flex-wrap w-full">
+            {
+                weapons.map(element => <WeaponCard element={element}/>)
+            }
         </div>
     )
 }
