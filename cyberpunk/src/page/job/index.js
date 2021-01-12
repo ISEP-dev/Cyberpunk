@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllJobs } from "../../service/job"
+import { getAllJobsAsync } from "../../service/job"
 import JobCard from "../../component/JobCard";
 
 const Jobs = (props) => {
@@ -10,7 +10,7 @@ const Jobs = (props) => {
     const [jobs, setjobs] = useState([])
 
     useEffect(() => {
-        getAllJobs().then((res) => {
+        getAllJobsAsync().then((res) => {
             let job = res.data
             console.log(job)
             setjobs(job)
@@ -18,7 +18,7 @@ const Jobs = (props) => {
     })
 
     return (
-        <div className="flex flex-wrap w-full">
+        <div className="flex flex-wrap justify-center space-x-8 p-8">
             {jobs.map(element => { return(<JobCard element={element}/>)})}
         </div>
     );
