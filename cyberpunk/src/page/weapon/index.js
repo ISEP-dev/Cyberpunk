@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
-import Weapons from "../../component/Modal/Weapons";
 import {getAllWeaponsAsync} from "../../service/weapon";
+import WeaponCard from "../../component/WeaponCard";
 
 const Weapon = () => {
     const [weapons, setWeapons] = useState([])
@@ -13,8 +13,10 @@ const Weapon = () => {
     }, [])
 
     return (
-        <div>
-            <Weapons weapons = {weapons}/>
+        <div className="flex flex-wrap w-full">
+            {
+                weapons.map(element => <WeaponCard element={element}/>)
+            }
         </div>
     )
 }
