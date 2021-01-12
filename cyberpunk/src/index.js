@@ -17,9 +17,9 @@ ReactDOM.render(
     <React.StrictMode>
         <Router>
             <Switch>
-                <Route path="/job" component={Job}/>
+                <Route path="/" component={Job}/>
                 <Route path="/weapon" component={Weapon}/>
-                <Route path="/" component={Merc}/>
+                {/* <Route path="/" component={Merc}/> */}
             </Switch>
         </Router>
     </React.StrictMode>,
