@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {redirectToAuthPageIfNotConnected} from "../../service/local-auth";
-import { getAllJobs } from "../../service/job"
+import { getAllJobsAsync } from "../../service/job"
 import JobCard from "../../component/JobCard";
 
 const Job = (props) => {
@@ -12,7 +12,7 @@ const Job = (props) => {
     const [jobs, setjobs] = useState([])
 
     useEffect(() => {
-        getAllJobs().then((res) => {
+        getAllJobsAsync().then((res) => {
             let job = res.data
             console.log(job)
             setjobs(job)
@@ -20,7 +20,7 @@ const Job = (props) => {
     })
 
     return (
-        <div className="flex flex-wrap w-full">
+        <div className="flex flex-wrap justify-center space-x-8 p-8">
             {jobs.map(element => { return(<JobCard element={element}/>)})}
         </div>
     );
