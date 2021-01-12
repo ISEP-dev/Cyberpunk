@@ -8,6 +8,7 @@ import Job from "./page/job/";
 import axios from "axios";
 import Navigation, {tabsEnum} from "./component/navigation";
 import './index.css';
+import '@fortawesome/fontawesome-free/css/all.min.css'
 
 const initAxios = () => {
     axios.defaults.baseURL = "http://localhost:8081"
