@@ -18,7 +18,7 @@ const WeaponCard = ({element}) => {
     }
 
     return (
-        <div key={element.id} className="w-96 p-4 m-4 border border-gray-600 flex flex-col justify-between" >
+        <div key={element.id} className="bg-white w-96 p-4 m-4 border border-gray-600 flex flex-col justify-between">
             <div>
                 <div className ='flex justify-center mb-2'>
                     <h1 className ='font-bold underline '>{element.name}</h1>
@@ -27,16 +27,22 @@ const WeaponCard = ({element}) => {
             </div>
             <div className="mt-3">
                 <div className="flex justify-between">
-                    <p className='text-sm'>Damage : {element.damage} </p><div className="border border-gray-600 w-64 h-2 mt-1.5">
-                    <div className={redBarre(element.damage)}></div></div>
+                    <p className='text-sm'>Damage : {element.damage} </p>
+                    <div className="border border-gray-600 w-64 h-2 mt-1.5">
+                        <div className={redBarre(element.damage)}/>
+                    </div>
                 </div>
                 <div className="flex justify-between">
-                    <p className='text-sm'>Accuracy : {element.accuracy}</p><div className="border border-gray-600 w-64 h-2 mt-1.5">
-                    <div className={blueBarre(element.accuracy)}></div></div>
+                    <p className='text-sm'>Accuracy : {element.accuracy}</p>
+                    <div className="border border-gray-600 w-64 h-2 mt-1.5">
+                        <div className={blueBarre(element.accuracy)}/>
+                    </div>
                 </div>
                 <div className="flex justify-between">
-                    <p className='text-sm'>Speed : {element.firerate}</p><div className="border border-gray-600 w-64 h-2 mt-1.5">
-                    <div className={greenBarre(element.firerate)}></div></div>
+                    <p className='text-sm'>Speed : {element.firerate}</p>
+                    <div className="border border-gray-600 w-64 h-2 mt-1.5">
+                        <div className={greenBarre(element.firerate)}/>
+                    </div>
                 </div>
                 <div className='flex justify-center mt-2'>
                     <div className='flex justify-center bg-yellow-300 w-28 rounded-xl px-1.5'>
