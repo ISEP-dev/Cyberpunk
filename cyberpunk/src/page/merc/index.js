@@ -1,7 +1,7 @@
 import Modal from "../../component/Modal";
 import {useEffect, useState} from "react";
 import MercTable from "../../component/Modal/MercTable";
-import {createMercAsync, getAllMercsAsync} from "../../service/merc";
+import {getAllMercsAsync} from "../../service/merc";
 
 const Merc = () => {
 
@@ -14,13 +14,13 @@ const Merc = () => {
             let newMercList = []
 
             for(let index = 0 ; mercs[index] ; index++) {
-        
+
             let array = Object.keys(mercs[index]).map(function(key) {
                 return mercs[index][key];
              });
                 newMercList.push(array)
             }
-        
+
             setMercs(newMercList)
         })
     }, [])
@@ -35,16 +35,15 @@ const Merc = () => {
         console.log("The new merc has been added")
     }
 
-    
+
     return (
         <div className="flex justify-center">
             {console.log(mercs)}
-            List of Mercs    
-            {useEffect}
+            List of Mercs
             <MercTable mercsList={mercs}/>
             <input type="button" value="Add a new Merc"/>
-            <Modal 
-                title="Add a new merc" 
+            <Modal
+                title="Add a new merc"
                 okButton="Create"
                 description={
                     <form>
@@ -64,10 +63,10 @@ const Merc = () => {
                             Eddies :
                             <input type="text" name="eddies" />
                         </label>
-                    </form>} 
+                    </form>}
                 onSubmit={submit(/*document.getElementById("nickname"), document.getElementById("legalAge")*/)}
                 visibility={false}/>
-            
+
         </div>
     );
 };
