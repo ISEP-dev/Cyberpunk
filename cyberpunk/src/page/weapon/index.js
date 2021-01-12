@@ -1,12 +1,21 @@
-import {useEffect} from 'react';
-import {redirectToAuthPageIfNotConnected} from "../../service/local-auth";
+import Modal from "../../component/Modal";
+import {useEffect, useState} from "react";
+import Weapons from "../../component/Modal/Weapons";
+import {getAllWeapons} from "../../service/weapon";
 
 const Weapon = () => {
-    useEffect(() => redirectToAuthPageIfNotConnected(), [])
+    const [weapons, setWeapons] = useState([])
+    useEffect(() => {
+        getAllWeapons().then((res) => {
+            let weapon = res.data
+            console.log(weapon)
+            setWeapons(weapon)
+        })
+    }, [])
 
     return (
-        <div className="flex">
-            <Weapons/>
+        <div>
+            <Weapons weapons = {weapons}/>
         </div>
     )
 }
