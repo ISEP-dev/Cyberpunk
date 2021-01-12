@@ -1,11 +1,11 @@
 import Modal from "../../component/Modal";
-import {getAllMercs} from "../../service/merc";
+import {getAllMercsAsync} from "../../service/merc";
 import {useEffect} from "react";
 
 const Merc = () => {
 
     useEffect(() => {
-        getAllMercs().then((res) => {
+        getAllMercsAsync().then((res) => {
             console.log(res)
         })
     }, [])
