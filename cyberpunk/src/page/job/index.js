@@ -7,7 +7,7 @@ const Job = (props) => {
     const jobs = props.jobs
     console.log(jobs)
 
-    const jobList = weapons.map(element =>{
+    const jobList = jobs.map(element =>{
         return(
             <div key={element.id}>
                 <div>
