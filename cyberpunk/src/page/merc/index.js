@@ -1,72 +1,66 @@
 import Modal from "../../component/Modal";
 import {useEffect, useState} from "react";
-import MercTable from "../../component/Modal/MercTable";
-import {getAllMercsAsync} from "../../service/merc";
+import {createMercAsync, getAllMercsAsync} from "../../service/merc";
+import MercCard from "../../component/MercCard";
 
 const Merc = () => {
-
-    const [mercs, setMercs] = useState([[0, "Magali", 1, 0, 0, 1], [1, "Mathilde", 12, 12, 12, 12] ])
+    const [mercs, setMercs] = useState([])
+    const [modalVisibility, setModalVisibility] = useState(false)
+    const [nickname, setNickname] = useState("")
+    const [legalAge, setLegalAge] = useState("")
 
     useEffect(() => {
         getAllMercsAsync().then((res) => {
-            console.log("Je suis là")
-            let mercs = res.data
-            let newMercList = []
-
-            for(let index = 0 ; mercs[index] ; index++) {
-
-            let array = Object.keys(mercs[index]).map(function(key) {
-                return mercs[index][key];
-             });
-                newMercList.push(array)
-            }
-
-            setMercs(newMercList)
+            setMercs(res.data)
         })
     }, [])
 
 
-    const submit = () => {
-        // console.log(nickname)
-        // console.log(legalAge)
-        // createNewMerc(nickname, legalAge)
-        console.log(mercs)
-        //si les champs nickname et legal Age ne sont pas vides ca doit ajouter le nouveau merc à la BDD
-        console.log("The new merc has been added")
+    const onModalSubmit = () => {
+        if (!!nickname && !!legalAge) {
+            createMercAsync(nickname, legalAge).then(res => {
+                setMercs([...mercs, res.data])
+            })
+            setModalVisibility(false)
+        } else {
+            alert("You need to enter a nickname and a age")
+        }
     }
 
+    const createMercForm = () => (
+        <div>
+            <div className="my-2">
+                Nickname
+                <input type="text" name="nickname" required={true}
+                       onChange={(e) => setNickname(e.target.value)}
+                       className="ml-2 pl-0.5 focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 shadow-sm border-2 border-gray-300 rounded-md"/>
+            </div>
+            <div className="my-2">
+                Legal Age
+                <input type="number" name="legalAge" required={true}
+                       onChange={(e) => setLegalAge(e.target.value)}
+                       className="ml-2 pl-0.5 focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 shadow-sm border-2 border-gray-300 rounded-md"/>
+            </div>
+        </div>
+    )
 
     return (
-        <div className="flex justify-center">
-            {console.log(mercs)}
-            List of Mercs
-            <MercTable mercsList={mercs}/>
-            <input type="button" value="Add a new Merc"/>
+        <div className="flex justify-center flex-wrap">
+            <div
+                className="bg-gray-800 shadow-lg overflow-hidden sm:rounded-lg p-6 m-4 w-1/5
+                text-white flex items-center justify-center cursor-pointer"
+                onClick={() => setModalVisibility(true)}>
+                <i className="fas fa-plus-circle text-6xl"/>
+            </div>
+            {
+                mercs.map((merc, i) => <MercCard key={i} merc={merc}/>)
+            }
             <Modal
                 title="Add a new merc"
                 okButton="Create"
-                description={
-                    <form>
-                        <label>
-                            Nickname :(required)
-                            <input id="nickname" type="text" name="nickname" required={false}/>
-                        </label>
-                        <label>
-                            Legal Age : (required)
-                            <input id="legalAge" type="text" name="legalAge" required={false}/>
-                        </label>
-                        <label>
-                            Weapon Type :
-                            <input type="text" name="weapon" />
-                        </label>
-                        <label>
-                            Eddies :
-                            <input type="text" name="eddies" />
-                        </label>
-                    </form>}
-                onSubmit={submit(/*document.getElementById("nickname"), document.getElementById("legalAge")*/)}
-                visibility={false}/>
-
+                description={createMercForm()}
+                onSubmit={onModalSubmit}
+                visibility={modalVisibility} onClose={() => setModalVisibility(false)}/>
         </div>
     );
 };
