@@ -2,6 +2,7 @@ import Modal from "../../component/Modal";
 import MercCard from "../../component/MercCard";
 import {createMercAsync, getAllMercsAsync} from "../../service/merc";
 import {redirectToAuthPageIfNotConnected} from "../../service/local-auth";
+import {useEffect, useState} from "react";
 
 const Merc = () => {
     const [mercs, setMercs] = useState([])
