@@ -1,4 +1,9 @@
-const WeaponCard = ({element}) => {
+import Options from "../Options/index.js"
+
+const WeaponCard = (props) => {
+    const element = props.element
+    const mercs = props.mercs
+
     const redBarre =(nbr) =>{
         const rem = Math.round(4*nbr/25)*4
         const width = 'bg-red-600 h-1.5 w-' + rem.toString()
@@ -44,10 +49,17 @@ const WeaponCard = ({element}) => {
                         <div className={greenBarre(element.firerate)}/>
                     </div>
                 </div>
-                <div className='flex justify-center mt-2'>
-                    <div className='flex justify-center bg-yellow-300 w-28 rounded-xl px-1.5'>
-                        <p>Buy : {element.price} $ </p>
+                <div className='flex justify-between mt-2'>
+                    <p>Price : {element.price} €$ </p>
+                    <div className='flex justify-space-between bg-yellow-300 w-44 rounded-xl px-1.5'>
+                        <select className="bg-transparent w-44">
+                            <option value="">Sell to :</option>
+                        {
+                            mercs.map(x => <Options merc={x} weapon ={element}/>)
+                        }
+                        </select>
                     </div>
+                    
                 </div>
             </div>
         </div>
