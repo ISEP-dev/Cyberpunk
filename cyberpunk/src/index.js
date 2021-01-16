@@ -9,6 +9,9 @@ import axios from "axios";
 import Navigation, {tabsEnum} from "./component/navigation";
 import './index.css';
 import '@fortawesome/fontawesome-free/css/all.min.css'
+import LocalAuth from "./page/local-auth";
+import Footer from "./component/Footer";
+import {authRoutePath, isAlreadyRegistered} from "./service/local-auth";
 
 const initAxios = () => {
     axios.defaults.baseURL = "http://localhost:8081"
@@ -26,11 +29,13 @@ ReactDOM.render(
                         <Route path={tabsEnum.JOBS.path} component={Job}/>
                         <Route path={tabsEnum.WEAPONS.path} component={Weapon}/>
                         <Route path={tabsEnum.MERCENARIES.path} component={Merc}/>
+                        <Route path={authRoutePath} component={LocalAuth}/>
                         <Route path="*">
-                            <Redirect to={tabsEnum.MERCENARIES.path}/>
+                            <Redirect to={isAlreadyRegistered() ? tabsEnum.MERCENARIES : authRoutePath}/>
                         </Route>
                     </Switch>
                 </section>
+                <Footer/>
             </Router>
         </React.StrictMode>
     </main>,

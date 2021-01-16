@@ -1,7 +1,8 @@
 import Modal from "../../component/Modal";
-import {useEffect, useState} from "react";
-import {createMercAsync, getAllMercsAsync} from "../../service/merc";
 import MercCard from "../../component/MercCard";
+import {createMercAsync, getAllMercsAsync} from "../../service/merc";
+import {redirectToAuthPageIfNotConnected} from "../../service/local-auth";
+import {useEffect, useState} from "react";
 
 const Merc = () => {
     const [mercs, setMercs] = useState([])
@@ -10,6 +11,7 @@ const Merc = () => {
     const [legalAge, setLegalAge] = useState("")
 
     useEffect(() => {
+        redirectToAuthPageIfNotConnected();
         getAllMercsAsync().then((res) => {
             setMercs(res.data)
         })
