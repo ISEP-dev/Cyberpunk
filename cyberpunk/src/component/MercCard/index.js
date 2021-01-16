@@ -1,14 +1,4 @@
-import {getWeaponByIdAsync} from "../../service/weapon";
-import {useState, useEffect} from "react";
-
 const MercCard = ({merc}) => {
-    const [weaponName, setWeaponName] = useState()
-
-    useEffect(() => {
-        getWeaponByIdAsync(merc.idWeapon).then(r => {
-            setWeaponName(r.data.name)
-        })
-    })
 
     return (
         <div
@@ -19,7 +9,7 @@ const MercCard = ({merc}) => {
                 {merc.nickname} <span className="text-sm">({merc.legalAge} years old)</span>
             </div>
             <div className="text-yellow-400 font-bold">€$ {merc.eddies}</div>
-            <div><i className="fas fa-bomb text-red-600 mr-2"/>{weaponName}</div>
+            <div><i className="fas fa-bomb text-red-600 mr-2"/>{merc.weapon.name}</div>
         </div>
     )
 }
