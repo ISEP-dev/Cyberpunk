@@ -1,27 +1,27 @@
 import MercsSelection from "../MercsSelection/index.js"
-import { useState } from 'react';
-import { updateMercWeaponAsync } from "../../service/merc";
+import {useState} from 'react';
+import {updateMercWeaponAsync} from "../../service/merc";
 import PropTypes from "prop-types";
 
 const WeaponCard = ({weapon}) => {
     const [mercSelected, setMercSelected] = useState();
 
-    const redBarre =(nbr) =>{
-        const rem = Math.round(4*nbr/25)*4
+    const redBarre = (nbr) => {
+        const rem = Math.round(4 * nbr / 25) * 4
         const width = 'bg-red-600 h-1.5 w-' + rem.toString()
-        return(width)
+        return (width)
     }
 
-    const blueBarre =(nbr) =>{
-        const rem = Math.round(4*nbr/25)*4
+    const blueBarre = (nbr) => {
+        const rem = Math.round(4 * nbr / 25) * 4
         const width = 'bg-blue-600 h-1.5 w-' + rem.toString()
-        return(width)
+        return (width)
     }
 
-    const greenBarre =(nbr) =>{
-        const rem = nbr*8
+    const greenBarre = (nbr) => {
+        const rem = nbr * 8
         const width = 'bg-green-600 h-1.5 w-' + rem.toString()
-        return(width)
+        return (width)
     }
 
     const buy = () => {
@@ -36,15 +36,16 @@ const WeaponCard = ({weapon}) => {
 
         updateMercWeaponAsync(mercSelected.id, weapon.id).then(_ => {
             console.log(mercSelected);
-            alert(mercSelected.nickname + "bought" + weapon.name )
+            alert(mercSelected.nickname + "bought" + weapon.name)
         });
     }
 
     return (
-        <div key={weapon.id} className="bg-white w-96 p-4 m-4 border border-gray-600 flex flex-col justify-between">
+        <div key={weapon.id}
+             className="flex flex-col justify-between bg-gray-800 shadow-lg sm:rounded-lg w-96 p-6 m-4 text-white">
             <div>
-                <div className ='flex justify-center mb-2'>
-                    <h1 className ='font-bold underline '>{weapon.name}</h1>
+                <div className='flex justify-center mb-2'>
+                    <h1 className='font-bold underline '>{weapon.name}</h1>
                 </div>
                 <p>{weapon.description}</p>
             </div>
@@ -67,11 +68,14 @@ const WeaponCard = ({weapon}) => {
                         <div className={greenBarre(weapon.firerate)}/>
                     </div>
                 </div>
-                <p>Price : {weapon.price} €$ </p>
+                <p>Price : <span className="text-yellow-400">{weapon.price} €$</span></p>
                 <div className='flex mt-2 justify-between'>
-                    <MercsSelection onSelectMerc={merc => setMercSelected(merc)} mercSelected={mercSelected}/>
-                    <button className="p-2 h-10 mt-6 bg-gray-900 hover:bg-yellow-400 hover:text-black cursor-pointer text-white rounded-full" 
-                            onClick={buy} disabled={!mercSelected}>Buy</button>
+                    <MercsSelection onSelectMerc={merc => setMercSelected(merc)}
+                                    mercSelected={mercSelected}/>
+                    <button
+                        className="p-2 h-10 mt-6 bg-yellow-400 text-gray-800 rounded-lg cursor-pointer hover:text-white hover:bg-gray-900"
+                        onClick={buy} disabled={!mercSelected}>Buy
+                    </button>
                 </div>
             </div>
         </div>
