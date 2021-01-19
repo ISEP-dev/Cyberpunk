@@ -1,10 +1,8 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
+import { createMercAsync, getAllMercsAsync } from "../../service/merc";
 import Modal from "../../component/Modal";
 import MercCard from "../../component/MercCard";
 import MercToCreateForm from "../../component/MercToCreateForm";
-import {createMercAsync, getAllMercsAsync} from "../../service/merc";
-import {redirectToAuthPageIfNotConnected} from "../../service/local-auth";
-import {message} from "../../service/notification";
 
 const Merc = () => {
     const [mercs, setMercs] = useState([])
@@ -13,8 +11,13 @@ const Merc = () => {
 
     useEffect(() => {
         getAllMercsAsync()
-            .then((res) => setMercs(res.data))
-            .catch(e => message().error(e));
+            .then((res) => {
+                const mercsSorted = res.data.sort((a, b) =>
+                    (a.isAlive === b.isAlive) ? 0 : a.isAlive ? -1 : 1
+                );
+                setMercs(mercsSorted);
+            })
+            .catch(e => alert(`[Error] : ${e}`));
     }, [])
 
     const createMerc = () => {
