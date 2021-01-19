@@ -29,7 +29,7 @@ const MercsSelection = ({ onSelectMerc, mercSelected }) => {
                         aria-labelledby="listbox-label"
                         className="relative w-full h-10 bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         <span className={`ml-3 block truncate ${!!mercSelected ? 'text-black' : 'text-gray-400'}`}>
-                            {!!mercSelected ? mercSelected.nickname : "Please, select a merc"}
+                            {!!mercSelected ? mercSelected.nickname : "Please select a merc"}
                         </span>
                     <i className={`absolute right-0 -mt-4 mr-2 fas ${isDropdownVisible ? "fa-chevron-circle-up" : "fa-chevron-circle-down" } text-yellow-400`}/>
                 </button>
