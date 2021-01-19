@@ -4,7 +4,7 @@ import {updateMercWeaponAsync} from "../../service/merc";
 import PropTypes from "prop-types";
 import ProgressBar from "../PorgressBar";
 
-const WeaponCard = ({weapon}) => {
+const WeaponCard = ({weapon, mercs}) => {
     const [mercSelected, setMercSelected] = useState("");
 
     const buy = () => {
@@ -46,7 +46,8 @@ const WeaponCard = ({weapon}) => {
                 </div>
                 <p>Price : <span className="text-yellow-400">{weapon.price} €$</span></p>
                 <div className='flex mt-2 justify-between'>
-                    <MercsSelection onSelectMerc={merc => setMercSelected(merc)}
+                    <MercsSelection mercs={mercs}
+                                    onSelectMerc={merc => setMercSelected(merc)}
                                     mercSelected={mercSelected}/>
                     <button
                         className="p-2 h-10 mt-6 bg-yellow-400 text-gray-800 rounded-lg cursor-pointer hover:text-white hover:bg-gray-900"
@@ -58,8 +59,9 @@ const WeaponCard = ({weapon}) => {
     )
 }
 
-export default WeaponCard;
-
 WeaponCard.propTypes = {
+    mercs: PropTypes.array.isRequired,
     weapon: PropTypes.object.isRequired,
 }
+
+export default WeaponCard;

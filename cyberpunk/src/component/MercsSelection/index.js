@@ -1,5 +1,6 @@
-import { getAllMercsAsync, getMercByIdAsync } from "../../service/merc";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types";
+import { getMercByIdAsync } from "../../service/merc";
 
 const MercsSelection = ({ onSelectMerc, mercSelected, mercs }) => {
     const [isDropdownVisible, setDropdownVisible] = useState(false);
@@ -14,7 +15,7 @@ const MercsSelection = ({ onSelectMerc, mercSelected, mercs }) => {
     return (
         <div>
             <label id="listbox-label" className="block text-sm font-medium text-gray-300">Mercenaries</label>
-            <div className="mt-1 relative w-64">
+            <div className="mt-1 relative">
                 <button type="button"
                         onClick={() => setDropdownVisible(!isDropdownVisible)}
                         aria-haspopup="listbox"
@@ -47,6 +48,13 @@ const MercsSelection = ({ onSelectMerc, mercSelected, mercs }) => {
                 </div>
             </div>
         </div>
-    )}
+    )
+}
+
+MercsSelection.propTypes = {
+    onSelectMerc: PropTypes.func.isRequired,
+    mercSelected: PropTypes.object.isRequired,
+    mercs: PropTypes.array.isRequired,
+}
 
 export default MercsSelection;
