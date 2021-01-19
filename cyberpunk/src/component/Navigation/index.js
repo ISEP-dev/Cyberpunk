@@ -1,5 +1,5 @@
 import {NavLink} from "react-router-dom";
-import {signOut} from "../../service/local-auth";
+import {isAlreadyRegistered, signOut} from "../../service/local-auth";
 
 export const tabsEnum = {
     MERCENARIES: {name: 'Mercenaries', path: '/mercenaries'},
@@ -10,6 +10,7 @@ const tabs = Object.values(tabsEnum);
 
 const Navigation = () => {
     return (
+        isAlreadyRegistered() &&
         <nav className="fixed z-10 top-0 flex flex-row justify-center w-screen items-center">
             <div className="flex flex-row items-center p-1 shadow-xs bg-yellow-200 m-4 rounded-full w-min px-4 shadow-sm">
                 {

@@ -12,7 +12,6 @@ const Merc = () => {
     const [form, setForm] = useState({nickname: "", legalAge: ""})
 
     useEffect(() => {
-        redirectToAuthPageIfNotConnected();
         getAllMercsAsync()
             .then((res) => setMercs(res.data))
             .catch(e => message().error(e));

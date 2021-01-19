@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { redirectToAuthPageIfNotConnected } from "../../service/local-auth";
 import { createJobAsync, getAllJobsAsync } from "../../service/job";
 import { getAllMercsAsync } from "../../service/merc";
 import JobCard from "../../component/JobCard";
@@ -14,8 +13,6 @@ const Jobs = () => {
     const [jobToCreate, setJobToCreate] = useState({});
 
     useEffect(() => {
-        redirectToAuthPageIfNotConnected();
-        
         getAllJobsAsync()
             .then((res) => {
                 const jobsSorted = res.data.sort((a, b) =>

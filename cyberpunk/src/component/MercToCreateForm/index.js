@@ -6,8 +6,10 @@ const MercToCreateForm = ({onFormChange}) => {
     const [formChange, setFormChange] = useState();
 
     useEffect(() => {
-        if (!formChange) return
-        onFormChange(formChange)
+        if (!formChange) {
+            return;
+        }
+        onFormChange(formChange);
     }, [formChange]);
 
     const handleLegalAgeChange = (legalAge) => {
