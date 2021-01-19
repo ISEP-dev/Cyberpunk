@@ -31,6 +31,7 @@ const MercsSelection = ({ onSelectMerc, mercSelected }) => {
                         <span className={`ml-3 block truncate ${!!mercSelected ? 'text-black' : 'text-gray-400'}`}>
                             {!!mercSelected ? mercSelected.nickname : "Please, select a merc"}
                         </span>
+                    <i className={`absolute right-0 -mt-4 mr-2 fas ${isDropdownVisible ? "fa-chevron-circle-up" : "fa-chevron-circle-down" } text-yellow-400`}/>
                 </button>
 
                 <div className={`absolute mt-1 w-full rounded-md bg-white shadow-lg ${!isDropdownVisible ? "hidden" : "" }`}>
