@@ -1,8 +1,12 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import PropTypes from "prop-types";
+import Alert from "../Alert";
 
 const MercToCreateForm = ({onFormChange}) => {
     const [formChange, setFormChange] = useState();
+
+    const [alertVisibility, setAlertVisibility] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
 
     useEffect(() => {
         if (!formChange) return
@@ -11,14 +15,15 @@ const MercToCreateForm = ({onFormChange}) => {
 
     const handleLegalAgeChange = (legalAge) => {
         if (legalAge < 0) {
-            alert("It's not a valid age.. !");
+            setAlertVisibility(true)
+            setAlertMessage("It's not a valid age.. !")
             return;
         }
-        setFormChange({...formChange, legalAge })
+        setFormChange({...formChange, legalAge})
     }
 
     const handleNicknameChange = (nickname) => {
-        setFormChange({...formChange, nickname })
+        setFormChange({...formChange, nickname})
     }
 
     return (
@@ -35,6 +40,8 @@ const MercToCreateForm = ({onFormChange}) => {
                        onChange={(e) => handleLegalAgeChange(e.target.value)}
                        className="ml-2 pl-0.5 focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 shadow-sm border-2 border-gray-300 rounded-md"/>
             </div>
+            <Alert text={alertMessage} visibility={alertVisibility}
+                   onClose={() => setAlertVisibility(false)} type={"error"}/>
         </div>
     );
 }
