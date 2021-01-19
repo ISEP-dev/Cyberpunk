@@ -20,7 +20,7 @@ const MercsSelection = ({ onSelectMerc, mercSelected }) => {
 
     return (
         <div>
-            <label id="listbox-label" className="block text-sm font-medium text-gray-700">Mercenaries</label>
+            <label id="listbox-label" className="block text-sm font-medium text-gray-300">Mercenaries</label>
             <div className="mt-1 relative w-64">
                 <button type="button"
                         onClick={() => setDropdownVisible(!isDropdownVisible)}
@@ -42,7 +42,7 @@ const MercsSelection = ({ onSelectMerc, mercSelected }) => {
                                 <li key={i}
                                     onClick={() => handleSelectMerc(merc.id)}
                                     role="option"
-                                    className="text-grey-900 hover:text-yellow-400 cursor-pointer select-none relative py-2 pl-3 pr-9">
+                                    className="text-gray-900 hover:text-white hover:bg-gray-800 cursor-pointer select-none relative py-2 pl-3 pr-9">
                                     <div className="flex items-center">
                                         {merc.nickname}
                                     </div>
