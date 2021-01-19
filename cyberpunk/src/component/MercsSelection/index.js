@@ -34,7 +34,7 @@ const MercsSelection = ({ onSelectMerc, mercSelected }) => {
                     <i className={`absolute right-0 -mt-4 mr-2 fas ${isDropdownVisible ? "fa-chevron-circle-up" : "fa-chevron-circle-down" } text-yellow-400`}/>
                 </button>
 
-                <div className={`absolute mt-1 w-full rounded-md bg-white shadow-lg ${!isDropdownVisible ? "hidden" : "" }`}>
+                <div className={`absolute mt-1 w-full rounded-md bg-white z-10 shadow-lg ${!isDropdownVisible ? "hidden" : "" }`}>
                     <ul role="listbox" aria-labelledby="listbox-label"
                         aria-activedescendant="listbox-item-3"
                         className="max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
