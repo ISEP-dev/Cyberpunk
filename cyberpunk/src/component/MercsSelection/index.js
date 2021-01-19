@@ -1,15 +1,8 @@
 import { getAllMercsAsync, getMercByIdAsync } from "../../service/merc";
 import { useState, useEffect } from "react";
 
-const MercsSelection = ({ onSelectMerc, mercSelected }) => {
-    const [mercs, setMercs] = useState([])
+const MercsSelection = ({ onSelectMerc, mercSelected, mercs }) => {
     const [isDropdownVisible, setDropdownVisible] = useState(false);
-
-    useEffect(() => {
-        getAllMercsAsync().then((res) => {
-            setMercs(res.data)
-        })
-    }, []);
 
     const handleSelectMerc = (idMerc) => {
         setDropdownVisible(!isDropdownVisible);
