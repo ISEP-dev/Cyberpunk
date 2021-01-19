@@ -1,4 +1,26 @@
 const JobCard = ({element}) => {
+    const fight = (job,merc) => {
+        const weapon = getMercsWeapon() //Cette fonction n'existe pas, il faut la trouver
+        let mercsLife = 100
+        for(let k=0; k<job.henchmenCount;k++){
+            let henchmenLife = 100
+            while(henchmenLife>0){
+                for(let i=0; i<weapon.firerate; i++){
+                    if(Math.floor(Math.random() * 100) < weapon.accuracy){
+                        henchmenLife -= weapon.power
+                    } 
+                } if(henchmenLife>0){
+                    mercsLife-=10
+                } if(mercsLife<=0){
+                    // the mercs is killed and th job is available again
+                    // Break
+                }
+            }
+        }
+        const newEddies = merc.eddies + job.reward
+        // The mercs guets the reward  
+        // the job is no longuer available
+    }
     return (
         <div key={element.id} 
         className="w-1/5 min-w-min bg-gray-800 p-5 text-white grid justify-items-stretch space-y-4">
