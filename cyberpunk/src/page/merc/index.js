@@ -22,7 +22,7 @@ const Merc = () => {
 
     const createMerc = () => {
         createMercAsync(form.nickname, form.legalAge)
-            .then(res => setMercs([...mercs, res.data]))
+            .then(res => setMercs([res.data, ...mercs]))
             .catch(e => alert(`[Error] : ${e}`))
             .finally(() => setModalVisibility(false));
     }
@@ -46,7 +46,8 @@ const Merc = () => {
                 mercs.map((merc, i) => <MercCard key={i} merc={merc}/>)
             }
             <Modal
-                title="Add a new merc"
+                title="Create a mercenary"
+                icon={<i className="fas fa-feather-alt"/>}
                 okButton="Create"
                 description={<MercToCreateForm onFormChange={f => setForm(f)}/>}
                 onSubmit={onModalSubmit}
