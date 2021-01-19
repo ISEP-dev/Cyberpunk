@@ -1,57 +1,42 @@
+import { useEffect, useState } from "react";
 import Modal from "../../component/Modal";
 import MercCard from "../../component/MercCard";
-import {createMercAsync, getAllMercsAsync} from "../../service/merc";
-import {redirectToAuthPageIfNotConnected} from "../../service/local-auth";
-import {useEffect, useState} from "react";
+import MercToCreateForm from "../../component/MercToCreateForm";
+import { createMercAsync, getAllMercsAsync } from "../../service/merc";
+import { redirectToAuthPageIfNotConnected } from "../../service/local-auth";
 
 const Merc = () => {
     const [mercs, setMercs] = useState([])
     const [modalVisibility, setModalVisibility] = useState(false)
-    const [nickname, setNickname] = useState("")
-    const [legalAge, setLegalAge] = useState("")
+    const [form, setForm] = useState({ nickname: "", legalAge: "" })
 
     useEffect(() => {
         redirectToAuthPageIfNotConnected();
-        getAllMercsAsync().then((res) => {
-            setMercs(res.data)
-        })
+        getAllMercsAsync()
+            .then((res) => setMercs(res.data))
+            .catch(e => alert(`[Error] : ${e}`));
     }, [])
 
-
-    const onModalSubmit = () => {
-        if (!!nickname && !!legalAge) {
-            createMercAsync(nickname, legalAge).then(res => {
-                setMercs([...mercs, res.data])
+    const createMerc = () => {
+        createMercAsync(form.nickname, form.legalAge)
+            .then(res => {
+                setMercs([...mercs, res.data]);
+                setModalVisibility(false);
             })
-            setModalVisibility(false)
-        } else {
-            alert("You need to enter a nickname and a age")
-        }
+            .catch(e => alert(`[Error] : ${e}`))
     }
 
-    const createMercForm = () => (
-        <div>
-            <div className="my-2">
-                Nickname
-                <input type="text" name="nickname" required={true}
-                       onChange={(e) => setNickname(e.target.value)}
-                       className="ml-2 pl-0.5 focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 shadow-sm border-2 border-gray-300 rounded-md"/>
-            </div>
-            <div className="my-2">
-                Legal Age
-                <input type="number" name="legalAge" required={true}
-                       onChange={(e) => setLegalAge(e.target.value)}
-                       className="ml-2 pl-0.5 focus:outline-none focus:ring-yellow-400 focus:border-yellow-400 shadow-sm border-2 border-gray-300 rounded-md"/>
-            </div>
-        </div>
-    )
+    const onModalSubmit = () => {
+        !form.nickname && !form.legalAge
+            ? alert("You need to enter a nickname and a age")
+            : createMerc();
+    }
 
     return (
-        <div className="flex justify-center flex-wrap">
-            <div
-                className="bg-gray-800 shadow-lg overflow-hidden sm:rounded-lg p-6 m-4 w-1/5
-                text-white flex items-center justify-center cursor-pointer"
-                onClick={() => setModalVisibility(true)}>
+        <section className="flex justify-between flex-wrap m-12">
+            <div className="hover:bg-gray-700 cursor-pointer bg-gray-800 shadow-lg overflow-hidden sm:rounded-lg
+                    p-6 m-4 w-1/5 text-white flex items-center justify-center cursor-pointer"
+                 onClick={() => setModalVisibility(true)}>
                 <i className="fas fa-plus-circle text-6xl"/>
             </div>
             {
@@ -60,10 +45,11 @@ const Merc = () => {
             <Modal
                 title="Add a new merc"
                 okButton="Create"
-                description={createMercForm()}
+                description={<MercToCreateForm onFormChange={f => setForm(f)} />}
                 onSubmit={onModalSubmit}
-                visibility={modalVisibility} onClose={() => setModalVisibility(false)}/>
-        </div>
+                visibility={modalVisibility}
+                onClose={() => setModalVisibility(false)}/>
+        </section>
     );
 };
 

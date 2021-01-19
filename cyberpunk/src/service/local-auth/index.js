@@ -1,4 +1,4 @@
-import {tabsEnum} from "../../component/navigation";
+import {tabsEnum} from "../../component/Navigation";
 
 export const localAuthNameKey = "local-name";
 export const authRoutePath = "/auth";
