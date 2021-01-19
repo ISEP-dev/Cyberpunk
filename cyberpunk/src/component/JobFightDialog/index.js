@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
-import FightService from "../../service/fight.service";
 import { killMercAsync } from "../../service/merc";
 import { completeJobAsync } from "../../service/job";
+import { launchFightAsync } from "../../service/fight";
 import FightComments from "../FightComments";
 import background from '../../asset/launch-game.gif';
 import backgroundAfterVictory from '../../asset/victory-job.gif';
@@ -29,7 +29,7 @@ const JobFightDialog = ({visibility, merc, weapon, job, onClose}) => {
 
     const play = () => {
         setIsPlayed(true);
-        FightService.launchAsync(merc, weapon, job, handleComments)
+        launchFightAsync(merc, weapon, job, handleComments)
             .then(mercAfterJob => setMercAfterJob(mercAfterJob))
             .catch(e => alert('Impossible to launch the job'))
             .finally(() => {
