@@ -1,6 +1,10 @@
 import { getWeaponByIdAsync } from "../../service/weapon"
 import {completeJobAsync} from "../../service/job";
 
+const fakeMerc = {
+    id: 3,
+    weaponId: 1
+}
 
 const JobCard = ({element}) => {
     const fight = (job,merc) => {
@@ -21,11 +25,12 @@ const JobCard = ({element}) => {
                 }
             }
         }
-        completeJobAsync(job.id).then(res => console.log(res))
+        completeJobAsync(job.id, merc.id).then(res => console.log(res))
     }
     return (
         <div key={element.id} 
-        className="w-1/5 min-w-min bg-gray-800 p-5 text-white grid justify-items-stretch space-y-4">
+        className="w-1/5 min-w-min bg-gray-800 p-5 text-white grid justify-items-stretch space-y-4 
+        pb-3 ">
             <div className="text-center">
                 <div><h1 className="font-bold text-yellow-400 text-2xl">{element.title}</h1></div>
             </div>
@@ -43,7 +48,8 @@ const JobCard = ({element}) => {
                         <form>
                             <input 
                             className="bg-yellow-200 text-gray-900 rounded-full p-2 cursor-pointer 
-                            hover:bg-yellow-400" type="button" value="Apply" />
+                            hover:bg-yellow-400" type="button" value="Apply" 
+                            onClick={() => fight(element, fakeMerc)} />
                         </form>
                     </div>
                 </div>
