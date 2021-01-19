@@ -1,6 +1,10 @@
+import { updateJobToComplete, updateMercEddiesAsync} from "../../service/merc"
+import { getWeaponByIdAsync } from "../../service/weapon"
+
+
 const JobCard = ({element}) => {
     const fight = (job,merc) => {
-        const weapon = getMercsWeapon() //Cette fonction n'existe pas, il faut la trouver
+        const weapon = getWeaponByIdAsync(merc.weaponId)
         let mercsLife = 100
         for(let k=0; k<job.henchmenCount;k++){
             let henchmenLife = 100
@@ -12,14 +16,13 @@ const JobCard = ({element}) => {
                 } if(henchmenLife>0){
                     mercsLife-=10
                 } if(mercsLife<=0){
-                    // the mercs is killed and th job is available again
+                    // the mercs is killed
                     // Break
                 }
             }
         }
-        const newEddies = merc.eddies + job.reward
-        // The mercs guets the reward  
-        // the job is no longuer available
+        updateMercEddiesAsync(job.id, merc.id)   
+        updateJobToComplete(job.id)     
     }
     return (
         <div key={element.id} 
