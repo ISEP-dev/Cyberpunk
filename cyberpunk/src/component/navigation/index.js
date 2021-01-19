@@ -10,7 +10,7 @@ const tabs = Object.values(tabsEnum);
 
 const Navigation = () => {
     return (
-        <nav className="fixed top-0 flex flex-row justify-center w-screen items-center">
+        <nav className="fixed z-10 top-0 flex flex-row justify-center w-screen items-center">
             <div className="flex flex-row items-center p-1 shadow-xs bg-yellow-200 m-4 rounded-full w-min px-4 shadow-sm">
                 {
                     tabs.map((t, i) =>

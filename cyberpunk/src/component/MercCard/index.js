@@ -1,17 +1,25 @@
+import PropTypes from "prop-types";
+
 const MercCard = ({merc}) => {
 
     return (
-        <div
-            className={`bg-gray-800 shadow-lg overflow-hidden sm:rounded-lg p-6 m-4 w-1/5 text-white ${!merc.isAlive ? "opacity-60" : ""}`}>
-            <i className={`fas fa-${merc.isAlive ? "heart text-red-600" : "heart-broken" +
-                " text-gray-300"} float-right`}/>
-            <div className="text-center font-bold text-xl pb-2">
-                {merc.nickname} <span className="text-sm">({merc.legalAge} years old)</span>
+        <div className={`${!merc.isAlive ? "bg-gray-400 opacity-90" : "bg-gray-800"} z-0 relative flex flex-col hover:bg-gray-700 cursor-pointer shadow-lg overflow-hidden sm:rounded-lg p-6 m-4 w-1/5 text-white`}>
+            <i className={`fas fa-${merc.isAlive ? "heart text-red-600" : "heart-broken text-gray-300"} absolute right-4 top-4 float-right`}/>
+            <span className="text-center font-bold text-xl">{merc.nickname}</span>
+            <span className="text-center text-sm pb-2">({merc.legalAge} years old)</span>
+            <div className={`${merc.isAlive ? "text-yellow-400" : "text-white"}  font-bold`}>
+                €$ {merc.eddies}
             </div>
-            <div className="text-yellow-400 font-bold">€$ {merc.eddies}</div>
-            <div><i className="fas fa-bomb text-red-600 mr-2"/>{merc.weapon.name}</div>
+            <div>
+                <i className={`${merc.isAlive ? "text-red-600" : "text-white"} fas fa-bomb mr-2`}/>
+                {merc.weapon.name}
+            </div>
         </div>
     )
+}
+
+MercCard.propTypes = {
+    merc: PropTypes.object.isRequired,
 }
 
 export default MercCard;
