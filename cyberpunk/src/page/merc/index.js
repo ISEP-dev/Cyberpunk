@@ -1,4 +1,4 @@
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Modal from "../../component/Modal";
 import MercCard from "../../component/MercCard";
 import MercToCreateForm from "../../component/MercToCreateForm";
@@ -21,14 +21,15 @@ const Merc = () => {
         createMercAsync(form.nickname, form.legalAge)
             .then(res => {
                 setMercs([...mercs, res.data]);
-                setModalVisibility(false)
+                setModalVisibility(false);
             })
             .catch(e => alert(`[Error] : ${e}`))
     }
 
     const onModalSubmit = () => {
-        !form.nickname && !form.legalAge ? alert("You need to enter a nickname and a age") : createMerc();
-        createMerc();
+        !form.nickname && !form.legalAge
+            ? alert("You need to enter a nickname and a age")
+            : createMerc();
     }
 
     return (
