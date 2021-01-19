@@ -1,6 +1,7 @@
 import MercsSelection from "../MercsSelection/index.js"
 import { useState } from 'react';
-import {getMercByIdAsync, updateMercWeaponAsync} from "../../service/merc";
+import { updateMercWeaponAsync } from "../../service/merc";
+import PropTypes from "prop-types";
 
 const WeaponCard = ({weapon}) => {
     const [mercSelected, setMercSelected] = useState();
@@ -77,3 +78,7 @@ const WeaponCard = ({weapon}) => {
 }
 
 export default WeaponCard;
+
+WeaponCard.propTypes = {
+    weapon: PropTypes.object.isRequired,
+}
