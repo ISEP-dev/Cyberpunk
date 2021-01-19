@@ -35,7 +35,7 @@ const Alert = ({text, type, timeout, visibility, onClose}) => {
 
     return (
         <div
-            className={`absolute top-5 left-0 right-0 mx-auto bg-${color}-200 px-6 py-4 my-4 rounded-md text-lg flex items-center justify-center w-1/4 z-20 ${visibility ? "block" : "hidden"} `}>
+            className={`fixed top-5 left-0 right-0 mx-auto bg-${color}-200 px-6 py-4 my-4 rounded-md text-lg flex items-center justify-center w-1/4 z-20 ${visibility ? "block" : "hidden"} `}>
             <i className={`fas fa-${icon} text-${color}-800 mr-2`}/>
             <span className={`text-${color}-800`}>{text}</span>
         </div>
