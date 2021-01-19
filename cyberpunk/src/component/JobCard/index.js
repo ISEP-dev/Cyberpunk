@@ -1,5 +1,5 @@
-import { updateJobToComplete, updateMercEddiesAsync} from "../../service/merc"
 import { getWeaponByIdAsync } from "../../service/weapon"
+import {completeJobAsync} from "../../service/job";
 
 
 const JobCard = ({element}) => {
@@ -21,8 +21,7 @@ const JobCard = ({element}) => {
                 }
             }
         }
-        updateMercEddiesAsync(job.id, merc.id)   
-        updateJobToComplete(job.id)     
+        completeJobAsync(job.id).then(res => console.log(res))
     }
     return (
         <div key={element.id} 

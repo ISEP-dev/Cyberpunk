@@ -3,7 +3,7 @@ import {redirectToAuthPageIfNotConnected} from "../../service/local-auth";
 import { getAllJobsAsync } from "../../service/job"
 import JobCard from "../../component/JobCard";
 
-const Job = (props) => {
+const Jobs = (props) => {
     useEffect(() => redirectToAuthPageIfNotConnected(), [])
 
     // const jobs = props.jobs
