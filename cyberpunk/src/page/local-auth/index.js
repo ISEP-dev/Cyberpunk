@@ -1,7 +1,7 @@
 import './index.css';
 import {useState, useEffect} from "react";
 import {isAlreadyRegistered, signIn} from "../../service/local-auth";
-import {tabsEnum} from "../../component/navigation";
+import {tabsEnum} from "../../component/Navigation";
 
 const LocalAuth = () => {
     const [fixerName, setFixerName] = useState("");

@@ -6,7 +6,7 @@ import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom
 import Weapon from "./page/weapon/";
 import Job from "./page/job/";
 import axios from "axios";
-import Navigation, {tabsEnum} from "./component/navigation";
+import Navigation, {tabsEnum} from "./component/Navigation";
 import './index.css';
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import LocalAuth from "./page/local-auth";
