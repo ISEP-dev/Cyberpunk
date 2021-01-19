@@ -37,8 +37,8 @@ const LocalAuth = () => {
                                <p className={`text-red-400 text-xs italic p-1 ${!isVisible ? 'hidden' : ''}`}>
                                    I will kill you if you don't write your name !!!! It's mandatory.
                                </p>
-                        <button className="h-10 w-32 bg-yellow-300 mt-3 rounded-sm" onClick={auth}>
-                            Run to the die
+                        <button className="h-10 w-36 bg-yellow-300 mt-3 rounded-sm" onClick={auth}>
+                            Run to the death
                         </button>
                     </div>
                 </div>

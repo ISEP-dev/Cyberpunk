@@ -19,11 +19,9 @@ const Merc = () => {
 
     const createMerc = () => {
         createMercAsync(form.nickname, form.legalAge)
-            .then(res => {
-                setMercs([...mercs, res.data]);
-                setModalVisibility(false);
-            })
+            .then(res => setMercs([...mercs, res.data]))
             .catch(e => alert(`[Error] : ${e}`))
+            .finally(() => setModalVisibility(false));
     }
 
     const onModalSubmit = () => {
