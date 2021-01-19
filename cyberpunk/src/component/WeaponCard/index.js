@@ -18,8 +18,7 @@ const WeaponCard = ({weapon}) => {
         }
 
         updateMercWeaponAsync(mercSelected.id, weapon.id).then(_ => {
-            console.log(mercSelected);
-            alert(mercSelected.nickname + "bought" + weapon.name)
+            alert(mercSelected.nickname + " bought " + weapon.name)
         });
     }
 
