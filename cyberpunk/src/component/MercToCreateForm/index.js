@@ -4,7 +4,10 @@ import PropTypes from "prop-types";
 const MercToCreateForm = ({onFormChange}) => {
     const [formChange, setFormChange] = useState();
 
-    useEffect(() => onFormChange(formChange), [formChange]);
+    useEffect(() => {
+        if (!formChange) return
+        onFormChange(formChange)
+    }, [formChange]);
 
     const handleLegalAgeChange = (legalAge) => {
         if (legalAge < 0) {
