@@ -2,27 +2,10 @@ import MercsSelection from "../MercsSelection/index.js"
 import {useState} from 'react';
 import {updateMercWeaponAsync} from "../../service/merc";
 import PropTypes from "prop-types";
+import ProgressBar from "../PorgressBar";
 
 const WeaponCard = ({weapon}) => {
-    const [mercSelected, setMercSelected] = useState();
-
-    const redBarre = (nbr) => {
-        const rem = Math.round(4 * nbr / 25) * 4
-        const width = 'bg-red-600 h-1.5 w-' + rem.toString()
-        return (width)
-    }
-
-    const blueBarre = (nbr) => {
-        const rem = Math.round(4 * nbr / 25) * 4
-        const width = 'bg-blue-600 h-1.5 w-' + rem.toString()
-        return (width)
-    }
-
-    const greenBarre = (nbr) => {
-        const rem = nbr * 8
-        const width = 'bg-green-600 h-1.5 w-' + rem.toString()
-        return (width)
-    }
+    const [mercSelected, setMercSelected] = useState("");
 
     const buy = () => {
         if (!mercSelected) {
@@ -51,22 +34,16 @@ const WeaponCard = ({weapon}) => {
             </div>
             <div className="mt-3">
                 <div className="flex justify-between">
-                    <p className='text-sm'>Damage : {weapon.damage} </p>
-                    <div className="border border-gray-600 w-64 h-2 mt-1.5">
-                        <div className={redBarre(weapon.damage)}/>
-                    </div>
+                    <p className='text-sm'>Damage</p>
+                    <ProgressBar number={weapon.damage} color={"red"}/>
                 </div>
                 <div className="flex justify-between">
-                    <p className='text-sm'>Accuracy : {weapon.accuracy}</p>
-                    <div className="border border-gray-600 w-64 h-2 mt-1.5">
-                        <div className={blueBarre(weapon.accuracy)}/>
-                    </div>
+                    <p className='text-sm'>Accuracy</p>
+                    <ProgressBar number={weapon.accuracy} color={"blue"}/>
                 </div>
                 <div className="flex justify-between">
-                    <p className='text-sm'>Speed : {weapon.firerate}</p>
-                    <div className="border border-gray-600 w-64 h-2 mt-1.5">
-                        <div className={greenBarre(weapon.firerate)}/>
-                    </div>
+                    <p className='text-sm'>Firerate</p>
+                    <ProgressBar number={weapon.firerate * 10} color={"green"}/>
                 </div>
                 <p>Price : <span className="text-yellow-400">{weapon.price} €$</span></p>
                 <div className='flex mt-2 justify-between'>
