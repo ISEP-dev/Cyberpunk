@@ -1,4 +1,5 @@
 import {NavLink} from "react-router-dom";
+import {signOut} from "../../service/local-auth";
 
 export const tabsEnum = {
     MERCENARIES: {name: 'Mercenaries', path: '/mercenaries'},
@@ -21,6 +22,9 @@ const Navigation = () => {
                         </NavLink>
                     )
                 }
+                <div onClick={signOut} className="flex flex-row items-center justify-center m-1 ml-8 p-2.5 w-32 bg-gray-900 hover:bg-yellow-300 hover:text-black cursor-pointer text-white rounded-full">
+                    Sign out
+                </div>
             </div>
         </nav>
     )
