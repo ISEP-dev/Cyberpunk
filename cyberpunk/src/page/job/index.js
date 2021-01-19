@@ -1,20 +1,32 @@
 import { useEffect, useState } from "react";
 import { redirectToAuthPageIfNotConnected } from "../../service/local-auth";
 import { createJobAsync, getAllJobsAsync } from "../../service/job";
+import { getAllMercsAsync } from "../../service/merc";
 import JobCard from "../../component/JobCard";
 import Modal from "../../component/Modal";
 import JobToCreateForm from "../../component/JobToCreateForm";
 
 const Jobs = () => {
-    const [jobs, setjobs] = useState([]);
+    const [jobs, setJobs] = useState([]);
+    const [mercs, setMercs] = useState([]);
     const [modalVisibility, setModalVisibility] = useState(false);
     const [isJobToCreateValid, setIsValid] = useState(false);
     const [jobToCreate, setJobToCreate] = useState({});
 
     useEffect(() => {
         redirectToAuthPageIfNotConnected();
+        
         getAllJobsAsync()
-            .then((res) => setjobs(res.data))
+            .then((res) => {
+                const jobsSorted = res.data.sort((a, b) =>
+                    (a.isAvailable === b.isAvailable) ? 0 : a.isAvailable ? -1 : 1
+                );
+                setJobs(jobsSorted);
+            })
+            .catch(e => alert(`[Error]: ${e}`));
+
+        getAllMercsAsync()
+            .then((res) => setMercs(res.data))
             .catch(e => alert(`[Error]: ${e}`));
     }, []);
 
@@ -34,9 +46,7 @@ const Jobs = () => {
         }
 
         createJobAsync(jobToCreate)
-            .then(res => {
-                setjobs([...jobs, res.data]);
-            })
+            .then(res => setJobs([res.data, ...jobs]))
             .catch(e => alert(`[Error] : ${e}`))
             .finally(() => setModalVisibility(false))
     };
@@ -49,11 +59,12 @@ const Jobs = () => {
             </div>
 
             {
-                jobs.map((job, i) => <JobCard key={i} job={job}/>)
+                jobs.map((job, i) => <JobCard key={i} mercs={mercs} job={job}/>)
             }
 
             <Modal
-                title={"Add new job"}
+                title={"Create a job"}
+                icon={<i className="fas fa-feather-alt"/>}
                 okButton={"Create"}
                 onSubmit={modalSubmit}
                 visibility={modalVisibility}
