@@ -1,5 +1,6 @@
 import Merc from "../model/merc";
 import Henchmen from "../model/henchmen";
+import FightComment, {fightCommentEnum} from "../model/fightComment";
 
 class FightService {
 
@@ -11,36 +12,31 @@ class FightService {
         return henchmens;
     }
 
-    static fightAsync = async (striker, enemy, setComment) => {
-        setComment( `${striker.nickname} attack ${enemy.nickname} !`);
-        const comment = await striker.strikeAsync(enemy);
-        setComment(comment);
+    static fightAsync = async (striker, enemy, setComments) => {
+        const commentAdded = await striker.strikeAsync(enemy);
+        setComments(commentAdded);
     }
 
     static removeHenchmenKilled = (henchmensToFight, henchmenKilled) =>
         henchmensToFight.filter(h => henchmenKilled.id !== h.id);
 
-    static launchAsync = async (merc, weapon, job, setComment) => {
+    static launchAsync = async (merc, weapon, job, setComments) => {
         const mercAsFighter = new Merc(merc.id, merc.nickname, weapon);
         let henchmens = this.getHenchmens(job.henchmenCount);
 
         while(!!henchmens.length && mercAsFighter.isAlive) {
             const henchmenToFight = henchmens[0];
-            await this.fightAsync(mercAsFighter, henchmenToFight, setComment);
+            await this.fightAsync(mercAsFighter, henchmenToFight, setComments);
 
             if (henchmenToFight.isAlive) {
-                await this.fightAsync(henchmenToFight, mercAsFighter, setComment);
+                await this.fightAsync(henchmenToFight, mercAsFighter, setComments);
                 continue;
             }
 
             henchmens = this.removeHenchmenKilled(henchmens, henchmenToFight);
         }
 
-        const endMessage = mercAsFighter.isAlive
-            ? "Yeahhhhh, very good. You congratulated the job !"
-            : "Sorry boy, you are a noob...";
-
-        setComment(endMessage);
+        return mercAsFighter;
     }
 
 }

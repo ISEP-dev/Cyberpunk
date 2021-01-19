@@ -1,3 +1,5 @@
+import FightComment, {fightCommentEnum} from "./fightComment";
+
 class Fighter {
     constructor(id, nickname, damage, firerate, accuracy) {
         this.life = 100;
@@ -10,20 +12,21 @@ class Fighter {
     }
 
     strike(enemy) {
+        let comments = [];
         const random = Math.random();
         if (random > this.accuracy) {
-            return `The ${this.nickname}\'s knock failed...`;
+            return [new FightComment(fightCommentEnum.StrikeFailed, this.nickname, enemy.nickname)];
         }
 
         const totalDamages = this.damage * this.firerate;
         enemy.life = enemy.life - totalDamages;
-        let message = `${this.nickname} stike ${enemy.nickname} with ${totalDamages}PH`
+        comments = [...comments, new FightComment(fightCommentEnum.Strike, this.nickname, enemy.nickname, totalDamages)];
         if (enemy.life <= 0) {
             enemy.isAlive = false;
-            return `${message}. ${enemy.nickname} die!`;
+            return [...comments, new FightComment(fightCommentEnum.FighterDie, this.nickname, enemy.nickname)];
         }
 
-        return `${message}. ${enemy.nickname} has ${enemy.life}PH`;
+        return [...comments, new FightComment(fightCommentEnum.PhSummarize, this.nickname, enemy.nickname, totalDamages, enemy.life)];
     }
 
     strikeAsync = async (ennemy) => {
