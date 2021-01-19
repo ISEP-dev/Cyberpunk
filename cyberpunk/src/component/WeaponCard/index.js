@@ -1,8 +1,9 @@
-import Options from "../Options/index.js"
+import MercsSelection from "../MercsSelection/index.js"
+import { useState } from 'react';
+import {getMercByIdAsync, updateMercWeaponAsync} from "../../service/merc";
 
-const WeaponCard = (props) => {
-    const element = props.element
-    const mercs = props.mercs
+const WeaponCard = ({weapon}) => {
+    const [mercSelected, setMercSelected] = useState();
 
     const redBarre =(nbr) =>{
         const rem = Math.round(4*nbr/25)*4
@@ -22,44 +23,53 @@ const WeaponCard = (props) => {
         return(width)
     }
 
+    const buy = () => {
+        if (!mercSelected) {
+            return;
+        }
+
+        if (mercSelected.eddies < weapon.price) {
+            alert(mercSelected.nickname + " doesn't have enough eddies !!");
+            return;
+        }
+
+        updateMercWeaponAsync(mercSelected.id, weapon.id).then(_ => {
+            console.log(mercSelected);
+            alert(mercSelected.nickname + "bought" + weapon.name )
+        });
+    }
+
     return (
-        <div key={element.id} className="bg-white w-96 p-4 m-4 border border-gray-600 flex flex-col justify-between">
+        <div key={weapon.id} className="bg-white w-96 p-4 m-4 border border-gray-600 flex flex-col justify-between">
             <div>
                 <div className ='flex justify-center mb-2'>
-                    <h1 className ='font-bold underline '>{element.name}</h1>
+                    <h1 className ='font-bold underline '>{weapon.name}</h1>
                 </div>
-                <p>{element.description}</p>
+                <p>{weapon.description}</p>
             </div>
             <div className="mt-3">
                 <div className="flex justify-between">
-                    <p className='text-sm'>Damage : {element.damage} </p>
+                    <p className='text-sm'>Damage : {weapon.damage} </p>
                     <div className="border border-gray-600 w-64 h-2 mt-1.5">
-                        <div className={redBarre(element.damage)}/>
+                        <div className={redBarre(weapon.damage)}/>
                     </div>
                 </div>
                 <div className="flex justify-between">
-                    <p className='text-sm'>Accuracy : {element.accuracy}</p>
+                    <p className='text-sm'>Accuracy : {weapon.accuracy}</p>
                     <div className="border border-gray-600 w-64 h-2 mt-1.5">
-                        <div className={blueBarre(element.accuracy)}/>
+                        <div className={blueBarre(weapon.accuracy)}/>
                     </div>
                 </div>
                 <div className="flex justify-between">
-                    <p className='text-sm'>Speed : {element.firerate}</p>
+                    <p className='text-sm'>Speed : {weapon.firerate}</p>
                     <div className="border border-gray-600 w-64 h-2 mt-1.5">
-                        <div className={greenBarre(element.firerate)}/>
+                        <div className={greenBarre(weapon.firerate)}/>
                     </div>
                 </div>
-                <div className='flex justify-between mt-2'>
-                    <p>Price : {element.price} €$ </p>
-                    <div className='flex justify-space-between bg-yellow-300 w-44 rounded-xl px-1.5'>
-                        <select className="bg-transparent w-44">
-                            <option value="">Sell to :</option>
-                        {
-                            mercs.map(x => <Options merc={x} weapon ={element}/>)
-                        }
-                        </select>
-                    </div>
-                    
+                <div className='flex flex-col mt-2'>
+                    <p>Price : {weapon.price} €$ </p>
+                    <MercsSelection onSelectMerc={merc => setMercSelected(merc)} mercSelected={mercSelected}/>
+                    <button onClick={buy} disabled={!mercSelected}>Buy</button>
                 </div>
             </div>
         </div>
