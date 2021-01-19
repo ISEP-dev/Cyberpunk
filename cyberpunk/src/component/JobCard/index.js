@@ -27,31 +27,21 @@ const JobCard = ({job}) => {
         }
         completeJobAsync(job.id, merc.id).then(res => console.log(res))
     }
+
     return (
-        <div key={job.id}
-        className="w-1/5 min-w-min bg-gray-800 p-5 text-white grid justify-items-stretch space-y-4 
-        pb-3 ">
-            <div className="text-center">
-                <div><h1 className="font-bold text-yellow-400 text-2xl">{job.title}</h1></div>
-            </div>
-            <div className='flex'>
-            <div className='w-3/5'>
+        <div key={job.id} style={{minWidth: '25rem', width: '48%'}} className="rounded-md bg-gray-800 p-5 text-white grid justify-items-stretch space-y-4 mb-4">
+            <h1 className="text-center font-bold text-yellow-400 text-2xl">{job.title}</h1>
+            <div className="flex flex-row">
+                <div className='w-3/5'>
                     <p className="break-words text-justify">{job.description}</p>
                 </div>
                 <div className='w-2/5 ml-4 flex flex-col justify-between'>
-                    <div className='space-y-4'>
-                        <p><b>Fixer:</b> {job.fixer}</p>
-                        <p><b>Henchmen:</b> {job.henchmenCount}</p>
-                        <p><b>Reward:</b> <b className="text-yellow-400">€${job.reward}</b></p>
-                    </div>
-                    <div  className="flex flex-row-reverse">
-                        <form>
-                            <input 
-                            className="bg-yellow-200 text-gray-900 rounded-full p-2 cursor-pointer 
-                            hover:bg-yellow-400" type="button" value="Apply" 
-                            onClick={() => fight(job, fakeMerc)} />
-                        </form>
-                    </div>
+                    <p className="mb-1">Fixer: job.fixer}</p>
+                    <p className="mb-1">Henchmen: {job.henchmenCount}</p>
+                    <p className="mb-3">Reward: €${job.reward}</p>
+                    <button className="bg-yellow-400 text-gray-900 h-10 rounded-sm w-full cursor-pointer hover:bg-yellow-300"
+                            type="button"
+                            onClick={() => fight(job, fakeMerc)}>Launch</button>
                 </div>
             </div>
         </div>

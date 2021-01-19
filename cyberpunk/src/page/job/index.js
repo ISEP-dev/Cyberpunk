@@ -42,8 +42,8 @@ const Jobs = () => {
     };
 
     return (
-        <div className="flex flex-wrap justify-center space-x-8 p-8">
-            <div className="w-1/5 bg-gray-800 p-5 text-white flex items-center justify-center pb-3 cursor-pointer"
+        <section className="flex flex-row flex-wrap justify-between justify-center m-10 pt-4">
+            <div style={{width: '48%'}} className="rounded-md hover:bg-gray-700 mb-4 mr-2 bg-gray-800 p-5 text-white flex items-center justify-center pb-3 cursor-pointer"
                 onClick={() => setModalVisibility(true)}>
                 <i className="fas fa-plus-circle text-5xl "/>
             </div>
@@ -60,7 +60,7 @@ const Jobs = () => {
                 onClose={() => setModalVisibility(false)}
                 description={<JobToCreateForm onFormChange={j => setJobToCreate(j)}/>}
             />
-        </div>
+        </section>
     );
 };
 
