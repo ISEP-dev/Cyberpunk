@@ -67,10 +67,11 @@ const WeaponCard = ({weapon}) => {
                         <div className={greenBarre(weapon.firerate)}/>
                     </div>
                 </div>
-                <div className='flex flex-col mt-2'>
-                    <p>Price : {weapon.price} €$ </p>
+                <p>Price : {weapon.price} €$ </p>
+                <div className='flex mt-2 justify-between'>
                     <MercsSelection onSelectMerc={merc => setMercSelected(merc)} mercSelected={mercSelected}/>
-                    <button onClick={buy} disabled={!mercSelected}>Buy</button>
+                    <button className="p-2 h-10 mt-6 bg-gray-900 hover:bg-yellow-400 hover:text-black cursor-pointer text-white rounded-full" 
+                            onClick={buy} disabled={!mercSelected}>Buy</button>
                 </div>
             </div>
         </div>
