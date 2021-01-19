@@ -1,12 +1,20 @@
-import {useEffect} from 'react';
-import {redirectToAuthPageIfNotConnected} from "../../service/local-auth";
+import {useEffect, useState} from "react";
+import {getAllWeaponsAsync} from "../../service/weapon";
+import WeaponCard from "../../component/WeaponCard";
 
 const Weapon = () => {
-    useEffect(() => redirectToAuthPageIfNotConnected(), [])
+    const [weapons, setWeapons] = useState([])
+    useEffect(() => {
+        getAllWeaponsAsync().then((res) => {
+            setWeapons(res.data);
+        })
+    }, [])
 
     return (
-        <div className="flex">
-            Weapon page
+        <div className="flex flex-wrap w-full">
+        {
+            weapons.map((weapon, i) => <WeaponCard key={i} weapon={weapon}/>)
+        }
         </div>
     )
 }
