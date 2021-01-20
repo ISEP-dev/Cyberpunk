@@ -19,16 +19,16 @@ const FightComments = ({ comments }) => {
                                 <span className="font-bold text-gray-700 mr-2">{c.strikerName}</span>
                                 strike
                                 <span className="font-bold text-red-900 ml-2 mr-2">{c.enemyName}</span>
-                                with {c.phInflicted}PH inflicted
+                                with {c.hpInflicted}HP inflicted
                             </span>
                         )
                     case fightCommentEnum.StrikeFailed.value:
                         return <span key={i}>The {c.strikerName}'s knock failed...</span>
-                    case fightCommentEnum.PhSummarize.value:
+                    case fightCommentEnum.HPSummarize.value:
                         return (
                             <span className="mb-4 text-sm" key={i}>
                                 <i className="fas fa-heart mr-4 text-red-600"/>
-                                ({c.enemyName} has {c.enemyPh}PH)
+                                ({c.enemyName} has {c.enemyHP}HP)
                             </span>
                         )
                     case fightCommentEnum.FighterDie.value:

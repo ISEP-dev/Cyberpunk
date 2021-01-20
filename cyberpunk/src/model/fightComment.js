@@ -2,16 +2,16 @@ export const fightCommentEnum = {
     StrikeFailed : { value: 0 },
     Strike: { value: 1 },
     FighterDie: { value: 2 },
-    PhSummarize : { value: 3 },
+    HPSummarize : { value: 3 },
 };
 
 class FightComment {
-    constructor(fightCommentEnum, strikerName = "", enemyName= "", phInflicted = null, enemyPh = null) {
+    constructor(fightCommentEnum, strikerName = "", enemyName= "", hpInflicted = null, enemyHP = null) {
         this.fightCommentEnum = fightCommentEnum;
         this.strikerName = strikerName;
         this.enemyName = enemyName;
-        this.phInflicted = phInflicted;
-        this.enemyPh = enemyPh;
+        this.hpInflicted = hpInflicted;
+        this.enemyHP = enemyHP;
     }
 }
 
