@@ -7,7 +7,8 @@ import MercToCreateForm from "../../component/MercToCreateForm";
 const Merc = () => {
     const [mercs, setMercs] = useState([])
     const [modalVisibility, setModalVisibility] = useState(false)
-    const [form, setForm] = useState({nickname: "", legalAge: ""})
+    const [form, setForm] = useState({})
+    const [isValid, setIsValid] = useState(false);
 
     useEffect(() => {
         getAllMercsAsync()
@@ -20,6 +21,8 @@ const Merc = () => {
             .catch(e => alert(`[Error] : ${e}`));
     }, [])
 
+    useEffect(() => setIsValid(!!form.nickname && form.legalAge > 0), [form]);
+
     const createMerc = () => {
         createMercAsync(form.nickname, form.legalAge)
             .then(res => setMercs([res.data, ...mercs]))
@@ -28,11 +31,7 @@ const Merc = () => {
     }
 
     const onModalSubmit = () => {
-        if (!form.nickname && !form.legalAge) {
-            message().warning("You need to enter a nickname and an age");
-        } else {
-            createMerc()
-        }
+        !isValid ? alert("You need to enter a nickname and a age") : createMerc();
     }
 
     return (
@@ -52,6 +51,7 @@ const Merc = () => {
                 description={<MercToCreateForm onFormChange={f => setForm(f)}/>}
                 onSubmit={onModalSubmit}
                 visibility={modalVisibility}
+                isSubmitDisabled={!isValid}
                 onClose={() => setModalVisibility(false)}/>
         </section>
     );
