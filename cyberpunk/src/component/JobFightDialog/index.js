@@ -12,7 +12,8 @@ import {message} from "../../service/notification";
 const JobFightDialog = ({visibility, merc, job, onClose}) => {
     const [isPlayed, setIsPlayed] = useState(false);
     const [isFightEnded, setIsFightEnded] = useState(false);
-    const [mercAfterJob, setMercAfterJob] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
+    const [mercAfterJob, setMercAfterJob] = useState(null);
     const [newComments, setNewComments] = useState([]);
     const [comments, setComments] = useState([]);
 
@@ -21,7 +22,7 @@ const JobFightDialog = ({visibility, merc, job, onClose}) => {
     const handleComments = useCallback((commentsToAdd) => setNewComments(commentsToAdd), []);
 
     useEffect(() => {
-        if (!mercAfterJob.isAlive) {
+        if (!!mercAfterJob && !mercAfterJob.isAlive) {
             killMercAsync(mercAfterJob.id)
                 .then(() => message().info(`${mercAfterJob.nickname} met the death..`))
                 .catch(e => message().error(e))
@@ -30,7 +31,7 @@ const JobFightDialog = ({visibility, merc, job, onClose}) => {
 
     const play = () => {
         setIsPlayed(true);
-        launchFightAsync(merc, merc.weapon, job, handleComments)
+        launchFightAsync(merc, merc.weapon, job, handleComments, setIsLoading)
             .then(mercAfterJob => {
                 setIsFightEnded(true);
                 setMercAfterJob(mercAfterJob);
@@ -39,9 +40,7 @@ const JobFightDialog = ({visibility, merc, job, onClose}) => {
                 message().error(`Impossible to launch the job : ${e}`);
                 onClose(job);
             })
-            .finally(() => {
-                setIsPlayed(false);
-            });
+            .finally(() => setIsPlayed(false));
     }
 
     const earnEddies = () => {
@@ -60,6 +59,11 @@ const JobFightDialog = ({visibility, merc, job, onClose}) => {
             {
                 isPlayed && (
                     <div className="w-1/2 h-full m-28 bg-white rounded-md text-gray-900 overflow-y-scroll">
+                        {
+                            isLoading &&
+                            <svg className="animate-spin h-96 w-96 mr-3 ..." viewBox="0 0 24 24"/>
+
+                        }
                         <FightComments comments={comments}/>
                     </div>
                 )
@@ -123,8 +127,8 @@ const JobFightDialog = ({visibility, merc, job, onClose}) => {
 JobFightDialog.propTypes = {
     visibility: PropTypes.bool.isRequired,
     job: PropTypes.object.isRequired,
-    merc: PropTypes.object.isRequired,
     onClose: PropTypes.func.isRequired,
+    merc: PropTypes.object.isRequired,
 }
 
 export default JobFightDialog;

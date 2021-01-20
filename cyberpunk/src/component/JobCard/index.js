@@ -6,7 +6,7 @@ import JobFightDialog from "../JobFightDialog";
 
 
 const JobCard = ({job, mercs, onJobAvailabilityChange}) => {
-    const [mercSelected, setMercSelected] = useState();
+    const [mercSelected, setMercSelected] = useState(null);
     const [isFightDialogVisible, setIsFightDialogVisible] = useState(false);
 
     const fight = () => {
@@ -58,11 +58,13 @@ const JobCard = ({job, mercs, onJobAvailabilityChange}) => {
             </div>
 
             {
-                !!mercSelected && <JobFightDialog visibility={isFightDialogVisible}
-                                    merc={mercSelected}
-                                    job={job}
-                                    onClose={closeJobFightDialog}/>
+                !!mercSelected &&
+                <JobFightDialog visibility={isFightDialogVisible}
+                                merc={mercSelected}
+                                job={job}
+                                onClose={closeJobFightDialog}/>
             }
+
         </div>
     );
 }

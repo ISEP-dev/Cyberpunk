@@ -11,7 +11,7 @@ const Notifications = () => {
     useEffect(() => setNotifications(n => [...n, notification]), [notification])
 
     return (
-        <div className="flex flex-col fixed bottom-5 right-5 z-20 w-full">
+        <div className="flex flex-col fixed bottom-5 right-5 z-50 w-full">
         {
             notifications.map((n, i) =>
                 !n ? "" : <Alert key={i} text={n.text} type={n.type} timeout={n.timeout}/>
