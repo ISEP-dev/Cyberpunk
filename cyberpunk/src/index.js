@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Merc from './page/merc';
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import axios from "axios";
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+import '@fortawesome/fontawesome-free/css/all.min.css'
+
+import { authRoutePath, isAlreadyRegistered, redirectTo } from "./service/local-auth";
+import Merc from './page/merc';
 import Weapon from "./page/weapon/";
 import Job from "./page/job/";
-import axios from "axios";
+import LocalAuth from "./page/local-auth";
 import Navigation, {tabsEnum} from "./component/Navigation";
+import Footer from "./component/Footer";
 import './index.css';
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import LocalAuth from "./page/local-auth";
@@ -28,9 +33,9 @@ ReactDOM.render(
                 <Notifications/>
                 <section className="mt-20">
                     <Switch>
-                        <Route path={tabsEnum.JOBS.path} component={Job}/>
-                        <Route path={tabsEnum.WEAPONS.path} component={Weapon}/>
-                        <Route path={tabsEnum.MERCENARIES.path} component={Merc}/>
+                        <Route path={tabsEnum.JOBS.path} component={redirectTo(Job)}/>
+                        <Route path={tabsEnum.WEAPONS.path} component={redirectTo(Weapon)}/>
+                        <Route path={tabsEnum.MERCENARIES.path} component={redirectTo(Merc)}/>
                         <Route path={authRoutePath} component={LocalAuth}/>
                         <Route path="*">
                             <Redirect to={isAlreadyRegistered() ? tabsEnum.MERCENARIES : authRoutePath}/>

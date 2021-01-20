@@ -1,14 +1,14 @@
 import { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
-import FightService from "../../service/fight.service";
 import { killMercAsync } from "../../service/merc";
 import { completeJobAsync } from "../../service/job";
+import { launchFightAsync } from "../../service/fight";
 import FightComments from "../FightComments";
 import background from '../../asset/launch-game.gif';
 import backgroundAfterVictory from '../../asset/victory-job.gif';
 import backgroundAfterDefeat from '../../asset/defeat-job.gif';
 
-const JobFightDialog = ({visibility, merc, weapon, job, onClose}) => {
+const JobFightDialog = ({visibility, merc, job, onClose}) => {
     const [isPlayed, setIsPlayed] = useState(false);
     const [isFightEnded, setIsFightEnded] = useState(false);
     const [mercAfterJob, setMercAfterJob] = useState({});
@@ -23,25 +23,34 @@ const JobFightDialog = ({visibility, merc, weapon, job, onClose}) => {
         if (!mercAfterJob.isAlive) {
             killMercAsync(mercAfterJob.id)
                 .then(() => alert(`${mercAfterJob.nickname} met the death..`))
-                .catch(e => alert(e));
+                .catch(e => alert(e))
         }
     }, [mercAfterJob]);
 
     const play = () => {
         setIsPlayed(true);
-        FightService.launchAsync(merc, weapon, job, handleComments)
-            .then(mercAfterJob => setMercAfterJob(mercAfterJob))
-            .catch(e => alert('Impossible to launch the job'))
+        launchFightAsync(merc, merc.weapon, job, handleComments)
+            .then(mercAfterJob => {
+                setIsFightEnded(true);
+                setMercAfterJob(mercAfterJob);
+            })
+            .catch(e => {
+                alert(`Impossible to launch the job : ${e}`);
+                onClose(job);
+            })
             .finally(() => {
                 setIsPlayed(false);
-                setIsFightEnded(true);
             });
     }
 
     const earnEddies = () => {
         completeJobAsync(job.id, mercAfterJob.id)
             .then(() => alert("Good job, your eddies are in your pocket !"))
-            .catch(e => alert(e));
+            .catch(e => alert(e))
+            .finally(() => {
+                setIsFightEnded(false);
+                onClose({...job, isAvailable: false});
+            });
     }
 
     return (
@@ -72,7 +81,8 @@ const JobFightDialog = ({visibility, merc, weapon, job, onClose}) => {
                                         </button>
                                     )
                                     : (
-                                        <button className="rounded-md p-4 m-3 text-xl text-white hover:bg-gray-800 bg-gray-900" onClick={onClose}>
+                                        <button className="rounded-md p-4 m-3 text-xl text-white hover:bg-gray-800 bg-gray-900"
+                                                onClick={() => onClose(job)}>
                                             <i className="fas fa-sad-tear mr-2"/>
                                             Accept the death..
                                         </button>
@@ -87,7 +97,7 @@ const JobFightDialog = ({visibility, merc, weapon, job, onClose}) => {
             {
                 !isPlayed && !isFightEnded && (
                     <div className="relative w-1/2 h-full m-28 bg-white rounded-md text-gray-900">
-                        <button className="absolute z-20 top-5 right-5 text-white" onClick={onClose}>
+                        <button className="absolute z-20 top-5 right-5 text-white" onClick={() => onClose(job)}>
                             <i className="fas fa-times"/>
                         </button>
                         <img className="w-full h-full absolute" alt="background" src={background}/>
@@ -111,7 +121,6 @@ const JobFightDialog = ({visibility, merc, weapon, job, onClose}) => {
 
 JobFightDialog.propTypes = {
     visibility: PropTypes.bool.isRequired,
-    weapon: PropTypes.object.isRequired,
     job: PropTypes.object.isRequired,
     merc: PropTypes.object.isRequired,
     onClose: PropTypes.func.isRequired,

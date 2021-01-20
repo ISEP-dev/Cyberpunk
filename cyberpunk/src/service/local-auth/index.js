@@ -1,4 +1,5 @@
 import {tabsEnum} from "../../component/Navigation";
+import LocalAuth from "../../page/local-auth";
 
 export const localAuthNameKey = "local-name";
 export const authRoutePath = "/auth";
@@ -22,8 +23,6 @@ export const isAlreadyRegistered = () => {
     return !!fixerName;
 }
 
-export const redirectToAuthPageIfNotConnected = () => {
-    if (!isAlreadyRegistered()) {
-        window.location.href = authRoutePath;
-    }
+export const redirectTo = (componentFunc) => {
+    return isAlreadyRegistered() ? componentFunc : LocalAuth;
 }

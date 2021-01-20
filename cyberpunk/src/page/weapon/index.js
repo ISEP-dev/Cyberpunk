@@ -17,7 +17,7 @@ const Weapon = () => {
     }, [])
 
     return (
-        <div className="flex flex-wrap w-full">
+        <div className="flex flex-wrap w-full justify-center">
         {
             weapons.map((weapon, i) => <WeaponCard key={i} mercs={mercs} weapon={weapon}/>)
         }

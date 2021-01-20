@@ -2,8 +2,7 @@ import MercsSelection from "../MercsSelection/index.js"
 import {useState} from 'react';
 import {updateMercWeaponAsync} from "../../service/merc";
 import PropTypes from "prop-types";
-import ProgressBar from "../PorgressBar";
-import {message} from "../../service/notification";
+import ProgressBar from "../ProgressBar";
 
 const WeaponCard = ({weapon, mercs}) => {
     const [mercSelected, setMercSelected] = useState("");
@@ -47,12 +46,14 @@ const WeaponCard = ({weapon, mercs}) => {
                 </div>
                 <p>Price : <span className="text-yellow-400">{weapon.price} €$</span></p>
                 <div className='flex mt-2 justify-between'>
-                    <MercsSelection mercs={mercs}
+                    <MercsSelection className="w-full mr-2"
+                                    mercs={mercs}
                                     onSelectMerc={merc => setMercSelected(merc)}
                                     mercSelected={mercSelected}/>
                     <button
-                        className="p-2 h-10 mt-6 bg-yellow-400 text-gray-800 rounded-lg cursor-pointer hover:text-white hover:bg-gray-900"
-                        onClick={buy} disabled={!mercSelected}>Buy
+                        className="p-2 w-16 h-10 mt-6 bg-yellow-300 text-gray-900 rounded-lg cursor-pointer hover:bg-yellow-400"
+                        onClick={buy} disabled={!mercSelected}>
+                        Buy
                     </button>
                 </div>
             </div>
