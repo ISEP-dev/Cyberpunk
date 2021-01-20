@@ -23,10 +23,14 @@ const Jobs = () => {
             })
             .catch(e => message().error(e));
 
+        refreshAllMercs();
+    }, []);
+
+    const refreshAllMercs= () => {
         getAllMercsAsync()
             .then((res) => setMercs(res.data))
             .catch(e => message().error(e));
-    }, []);
+    }
 
     useEffect(() => {
         const isValid = !!jobToCreate.title
@@ -62,7 +66,11 @@ const Jobs = () => {
 
             {
                 jobs.map((job, i) =>
-                    <JobCard key={i} mercs={mercs} job={job} onJobAvailabilityChange={onJobAvailabilityChange}/>
+                    <JobCard key={i}
+                             mercs={mercs}
+                             job={job}
+                             onJobAvailabilityChange={onJobAvailabilityChange}
+                             onMercSelectedDead={() => refreshAllMercs()}/>
                 )
             }
 

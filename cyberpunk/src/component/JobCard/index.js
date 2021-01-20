@@ -5,7 +5,7 @@ import MercsSelection from "../MercsSelection";
 import JobFightDialog from "../JobFightDialog";
 
 
-const JobCard = ({job, mercs, onJobAvailabilityChange}) => {
+const JobCard = ({job, mercs, onJobAvailabilityChange, onMercSelectedDead}) => {
     const [mercSelected, setMercSelected] = useState(null);
     const [isFightDialogVisible, setIsFightDialogVisible] = useState(false);
 
@@ -63,6 +63,7 @@ const JobCard = ({job, mercs, onJobAvailabilityChange}) => {
                 <JobFightDialog visibility={isFightDialogVisible}
                                 merc={mercSelected}
                                 job={job}
+                                onMercSelectedDead={onMercSelectedDead}
                                 onClose={closeJobFightDialog}/>
             }
 
@@ -74,6 +75,7 @@ JobCard.propTypes = {
     job: PropTypes.object.isRequired,
     mercs: PropTypes.array.isRequired,
     onJobAvailabilityChange: PropTypes.func.isRequired,
+    onMercSelectedDead: PropTypes.func.isRequired,
 }
 
 export default JobCard;

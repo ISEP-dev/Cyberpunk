@@ -13,20 +13,26 @@ class Fighter {
 
     strike(enemy) {
         let comments = [];
-        const random = Math.random();
-        if (random > this.accuracy) {
-            return [new FightComment(fightCommentEnum.StrikeFailed, this.nickname, enemy.nickname)];
+
+        for (let i = 0; i < this.firerate; i++) {
+            const random = Math.random();
+            if (random > this.accuracy) {
+                comments = [...comments, new FightComment(fightCommentEnum.StrikeFailed, this.nickname, enemy.nickname)];
+                continue;
+            }
+
+            enemy.life = enemy.life - this.damage;
+            comments = [...comments, new FightComment(fightCommentEnum.Strike, this.nickname, enemy.nickname, this.damage)];
+
+            if (enemy.life <= 0) {
+                enemy.isAlive = false;
+                 return [...comments, new FightComment(fightCommentEnum.FighterDie, this.nickname, enemy.nickname)];
+            }
+
+            comments = [...comments, new FightComment(fightCommentEnum.HPSummarize, this.nickname, enemy.nickname, this.damage, enemy.life)];
         }
 
-        const totalDamages = this.damage * this.firerate;
-        enemy.life = enemy.life - totalDamages;
-        comments = [...comments, new FightComment(fightCommentEnum.Strike, this.nickname, enemy.nickname, totalDamages)];
-        if (enemy.life <= 0) {
-            enemy.isAlive = false;
-            return [...comments, new FightComment(fightCommentEnum.FighterDie, this.nickname, enemy.nickname)];
-        }
-
-        return [...comments, new FightComment(fightCommentEnum.HPSummarize, this.nickname, enemy.nickname, totalDamages, enemy.life)];
+        return comments;
     }
 
     strikeAsync = async (ennemy) => {

@@ -9,7 +9,7 @@ import backgroundAfterVictory from '../../asset/victory-job.gif';
 import backgroundAfterDefeat from '../../asset/defeat-job.gif';
 import {message} from "../../service/notification";
 
-const JobFightDialog = ({visibility, merc, job, onClose}) => {
+const JobFightDialog = ({ visibility, merc, job, onClose, onMercSelectedDead }) => {
     const [isPlayed, setIsPlayed] = useState(false);
     const [isFightEnded, setIsFightEnded] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -24,7 +24,10 @@ const JobFightDialog = ({visibility, merc, job, onClose}) => {
     useEffect(() => {
         if (!!mercAfterJob && !mercAfterJob.isAlive) {
             killMercAsync(mercAfterJob.id)
-                .then(() => message().info(`${mercAfterJob.nickname} met the death..`))
+                .then(() => {
+                    message().info(`${mercAfterJob.nickname} met the death..`);
+                    onMercSelectedDead();
+                })
                 .catch(e => message().error(e))
         }
     }, [mercAfterJob]);
@@ -129,6 +132,7 @@ JobFightDialog.propTypes = {
     visibility: PropTypes.bool.isRequired,
     job: PropTypes.object.isRequired,
     onClose: PropTypes.func.isRequired,
+    onMercSelectedDead: PropTypes.func.isRequired,
     merc: PropTypes.object.isRequired,
 }
 
