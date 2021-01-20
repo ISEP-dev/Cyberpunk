@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import PropTypes from "prop-types";
 import {message} from "../../service/notification";
 
-const MercToCreateForm = ({onFormChange}) => {
+const MercToCreateForm = ({ onFormChange }) => {
     const [formChange, setFormChange] = useState();
 
     useEffect(() => {

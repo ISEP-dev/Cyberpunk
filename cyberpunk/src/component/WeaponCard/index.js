@@ -2,8 +2,7 @@ import MercsSelection from "../MercsSelection/index.js"
 import {useState} from 'react';
 import {updateMercWeaponAsync} from "../../service/merc";
 import PropTypes from "prop-types";
-import ProgressBar from "../PorgressBar";
-import {message} from "../../service/notification";
+import ProgressBar from "../ProgressBar";
 
 const WeaponCard = ({weapon, mercs}) => {
     const [mercSelected, setMercSelected] = useState("");
