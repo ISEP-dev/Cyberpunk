@@ -3,13 +3,10 @@ import {useState} from 'react';
 import {updateMercWeaponAsync} from "../../service/merc";
 import PropTypes from "prop-types";
 import ProgressBar from "../PorgressBar";
-import Alert from "../Alert";
+import {message} from "../../service/notification";
 
 const WeaponCard = ({weapon, mercs}) => {
     const [mercSelected, setMercSelected] = useState("");
-    const [alertVisibility, setAlertVisibility] = useState(false);
-    const [alertMessage, setAlertMessage] = useState("");
-    const [alertType, setAlertType] = useState("success");
 
     const buy = () => {
         if (!mercSelected) {
@@ -17,16 +14,12 @@ const WeaponCard = ({weapon, mercs}) => {
         }
 
         if (mercSelected.eddies < weapon.price) {
-            setAlertVisibility(true)
-            setAlertType("error")
-            setAlertMessage(mercSelected.nickname + " doesn't have enough eddies !!")
+            message().error(mercSelected.nickname + " doesn't have enough eddies !!");
             return;
         }
 
         updateMercWeaponAsync(mercSelected.id, weapon.id).then(() => {
-            setAlertVisibility(true)
-            setAlertType("success")
-            setAlertMessage(mercSelected.nickname + " bought " + weapon.name)
+            message().success(mercSelected.nickname + " bought " + weapon.name);
         });
     }
 
@@ -63,9 +56,6 @@ const WeaponCard = ({weapon, mercs}) => {
                     </button>
                 </div>
             </div>
-            <Alert text={alertMessage}
-                   type={alertType} visibility={alertVisibility}
-                   onClose={() => setAlertVisibility(false)}/>
         </div>
     )
 }

@@ -12,6 +12,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 import LocalAuth from "./page/local-auth";
 import Footer from "./component/Footer";
 import {authRoutePath, isAlreadyRegistered} from "./service/local-auth";
+import Notifications from "./component/Notifications";
 
 const initAxios = () => {
     axios.defaults.baseURL = "http://localhost:8081"
@@ -24,6 +25,7 @@ ReactDOM.render(
         <React.StrictMode>
             <Router>
                 <Navigation/>
+                <Notifications/>
                 <section className="mt-20">
                     <Switch>
                         <Route path={tabsEnum.JOBS.path} component={Job}/>
