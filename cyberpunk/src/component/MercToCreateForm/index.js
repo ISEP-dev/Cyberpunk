@@ -1,21 +1,25 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import PropTypes from "prop-types";
+import {message} from "../../service/notification";
 
 const MercToCreateForm = ({onFormChange}) => {
     const [formChange, setFormChange] = useState();
 
-    useEffect(() => onFormChange(formChange), [formChange]);
+    useEffect(() => {
+        if (!formChange) return
+        onFormChange(formChange)
+    }, [formChange]);
 
     const handleLegalAgeChange = (legalAge) => {
         if (legalAge < 0) {
-            alert("It's not a valid age.. !");
+            message().error("It's not a valid age.. !");
             return;
         }
-        setFormChange({...formChange, legalAge })
+        setFormChange({...formChange, legalAge})
     }
 
     const handleNicknameChange = (nickname) => {
-        setFormChange({...formChange, nickname })
+        setFormChange({...formChange, nickname})
     }
 
     return (

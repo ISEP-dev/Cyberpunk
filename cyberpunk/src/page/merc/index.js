@@ -1,20 +1,21 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Modal from "../../component/Modal";
 import MercCard from "../../component/MercCard";
 import MercToCreateForm from "../../component/MercToCreateForm";
-import { createMercAsync, getAllMercsAsync } from "../../service/merc";
-import { redirectToAuthPageIfNotConnected } from "../../service/local-auth";
+import {createMercAsync, getAllMercsAsync} from "../../service/merc";
+import {redirectToAuthPageIfNotConnected} from "../../service/local-auth";
+import {message} from "../../service/notification";
 
 const Merc = () => {
     const [mercs, setMercs] = useState([])
     const [modalVisibility, setModalVisibility] = useState(false)
-    const [form, setForm] = useState({ nickname: "", legalAge: "" })
+    const [form, setForm] = useState({nickname: "", legalAge: ""})
 
     useEffect(() => {
         redirectToAuthPageIfNotConnected();
         getAllMercsAsync()
             .then((res) => setMercs(res.data))
-            .catch(e => alert(`[Error] : ${e}`));
+            .catch(e => message().error(e));
     }, [])
 
     const createMerc = () => {
@@ -25,9 +26,11 @@ const Merc = () => {
     }
 
     const onModalSubmit = () => {
-        !form.nickname && !form.legalAge
-            ? alert("You need to enter a nickname and a age")
-            : createMerc();
+        if (!form.nickname && !form.legalAge) {
+            message().warning("You need to enter a nickname and an age");
+        } else {
+            createMerc()
+        }
     }
 
     return (
@@ -43,7 +46,7 @@ const Merc = () => {
             <Modal
                 title="Add a new merc"
                 okButton="Create"
-                description={<MercToCreateForm onFormChange={f => setForm(f)} />}
+                description={<MercToCreateForm onFormChange={f => setForm(f)}/>}
                 onSubmit={onModalSubmit}
                 visibility={modalVisibility}
                 onClose={() => setModalVisibility(false)}/>

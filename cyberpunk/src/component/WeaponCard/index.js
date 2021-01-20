@@ -3,6 +3,7 @@ import {useState} from 'react';
 import {updateMercWeaponAsync} from "../../service/merc";
 import PropTypes from "prop-types";
 import ProgressBar from "../PorgressBar";
+import {message} from "../../service/notification";
 
 const WeaponCard = ({weapon, mercs}) => {
     const [mercSelected, setMercSelected] = useState("");
@@ -13,12 +14,12 @@ const WeaponCard = ({weapon, mercs}) => {
         }
 
         if (mercSelected.eddies < weapon.price) {
-            alert(mercSelected.nickname + " doesn't have enough eddies !!");
+            message().error(mercSelected.nickname + " doesn't have enough eddies !!");
             return;
         }
 
-        updateMercWeaponAsync(mercSelected.id, weapon.id).then(_ => {
-            alert(mercSelected.nickname + " bought " + weapon.name)
+        updateMercWeaponAsync(mercSelected.id, weapon.id).then(() => {
+            message().success(mercSelected.nickname + " bought " + weapon.name);
         });
     }
 
@@ -33,15 +34,15 @@ const WeaponCard = ({weapon, mercs}) => {
             </div>
             <div className="mt-3">
                 <div className="flex justify-between">
-                    <p className='text-sm'>Damage</p>
+                    <p className='text-sm w-1/5'>Damage</p>
                     <ProgressBar number={weapon.damage} color={"red"}/>
                 </div>
                 <div className="flex justify-between">
-                    <p className='text-sm'>Accuracy</p>
+                    <p className='text-sm w-1/5'>Accuracy</p>
                     <ProgressBar number={weapon.accuracy} color={"blue"}/>
                 </div>
                 <div className="flex justify-between">
-                    <p className='text-sm'>Firerate</p>
+                    <p className='text-sm w-1/5'>Firerate</p>
                     <ProgressBar number={weapon.firerate * 10} color={"green"}/>
                 </div>
                 <p>Price : <span className="text-yellow-400">{weapon.price} €$</span></p>
