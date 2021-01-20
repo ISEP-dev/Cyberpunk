@@ -35,7 +35,7 @@ const Merc = () => {
     }
 
     return (
-        <section className="flex justify-between flex-wrap m-12">
+        <section className="flex justify-center flex-wrap m-12">
             <div className="hover:bg-gray-700 cursor-pointer bg-gray-800 shadow-lg overflow-hidden sm:rounded-lg
                     p-6 m-4 w-1/5 text-white flex items-center justify-center cursor-pointer"
                  onClick={() => setModalVisibility(true)}>

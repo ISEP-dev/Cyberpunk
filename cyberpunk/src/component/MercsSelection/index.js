@@ -2,7 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { getMercByIdAsync } from "../../service/merc";
 
-const MercsSelection = ({ onSelectMerc, mercSelected, mercs, isDisabled }) => {
+const MercsSelection = ({ onSelectMerc, mercSelected, mercs, isDisabled, className }) => {
     const [isDropdownVisible, setDropdownVisible] = useState(false);
 
     const handleSelectMerc = (idMerc) => {
@@ -13,7 +13,7 @@ const MercsSelection = ({ onSelectMerc, mercSelected, mercs, isDisabled }) => {
     }
 
     return (
-        <div>
+        <div className={className}>
             <label id="listbox-label" className="block text-sm font-medium text-gray-300">Mercenaries</label>
             <div className="mt-1 relative">
                 <button type="button"
@@ -52,6 +52,7 @@ const MercsSelection = ({ onSelectMerc, mercSelected, mercs, isDisabled }) => {
 MercsSelection.defaultProps = {
     mercSelected: {},
     isDisabled: false,
+    className: ""
 }
 
 MercsSelection.propTypes = {
@@ -59,6 +60,7 @@ MercsSelection.propTypes = {
     mercSelected: PropTypes.object,
     mercs: PropTypes.array.isRequired,
     isDisabled: PropTypes.bool,
+    className: PropTypes.string
 }
 
 export default MercsSelection;
