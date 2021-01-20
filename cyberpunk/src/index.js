@@ -25,7 +25,7 @@ initAxios()
 ReactDOM.render(
     <main className="main-content h-screen overflow-y-auto">
         <React.StrictMode>
-            <Router>
+            <Router basename="/">
                 <Navigation/>
                 <Notifications/>
                 <section className="mt-20">
