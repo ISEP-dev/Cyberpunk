@@ -47,7 +47,7 @@ const JobCard = ({job, mercs, onJobAvailabilityChange}) => {
                     <MercsSelection mercs={mercs} onSelectMerc={m => setMercSelected(m)} mercSelected={mercSelected} isDisabled={!job.isAvailable}/>
                     <button className={`${job.isAvailable 
                                 ? "cursor-pointer hover:bg-yellow-300 bg-yellow-400 text-gray-900" 
-                                : "bg-gray-500 text-gray-700"} h-10 rounded-sm w-full mt-2`
+                                : "pointer-event-none bg-gray-500 text-gray-700"} h-10 rounded-sm w-full mt-2`
                             }
                             disabled={!job.isAvailable}
                             type="button"

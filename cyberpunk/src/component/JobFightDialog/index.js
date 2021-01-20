@@ -33,8 +33,8 @@ const JobFightDialog = ({visibility, merc, job, onClose}) => {
         setIsPlayed(true);
         launchFightAsync(merc, merc.weapon, job, handleComments, setIsLoading)
             .then(mercAfterJob => {
-                setIsFightEnded(true);
                 setMercAfterJob(mercAfterJob);
+                setIsFightEnded(true);
             })
             .catch(e => {
                 message().error(`Impossible to launch the job : ${e}`);
