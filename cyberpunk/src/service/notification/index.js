@@ -10,7 +10,8 @@ class Message {
     }
 
     error(message) {
-        this.setNotification(new Notification(message, NotificationType.error));
+        const errorMessage = message instanceof Error ? message.message : message;
+        this.setNotification(new Notification(errorMessage, NotificationType.error));
     }
 
     warning(message) {
