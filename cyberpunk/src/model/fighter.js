@@ -26,7 +26,7 @@ class Fighter {
             return [...comments, new FightComment(fightCommentEnum.FighterDie, this.nickname, enemy.nickname)];
         }
 
-        return [...comments, new FightComment(fightCommentEnum.PhSummarize, this.nickname, enemy.nickname, totalDamages, enemy.life)];
+        return [...comments, new FightComment(fightCommentEnum.HPSummarize, this.nickname, enemy.nickname, totalDamages, enemy.life)];
     }
 
     strikeAsync = async (ennemy) => {
