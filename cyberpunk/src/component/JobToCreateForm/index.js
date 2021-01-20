@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import PropTypes from "prop-types";
 import { getFixerNameConnected } from "../../service/local-auth";
 import CyberpunkInput from "../CyberpunkInput";
 
@@ -11,7 +12,7 @@ const JobToCreateForm = ({onFormChange}) => {
         reward: 0,
     });
 
-    useEffect(() => onFormChange(formChange), [formChange]);
+    useEffect(() => onFormChange(formChange), [formChange, onFormChange]);
 
     const handleTitleChange = (title) => setFormChange({...formChange, title });
     const handleDescriptionChange = (description) => setFormChange({...formChange, description });
@@ -40,6 +41,10 @@ const JobToCreateForm = ({onFormChange}) => {
             <CyberpunkInput onChange={handleRewardChange} type="number" label="Reward"/>
         </div>
     )
+}
+
+JobToCreateForm.propTypes = {
+    onFormChange: PropTypes.func.isRequired,
 }
 
 export default JobToCreateForm;
