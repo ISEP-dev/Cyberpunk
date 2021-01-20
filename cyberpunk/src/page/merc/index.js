@@ -3,6 +3,7 @@ import { createMercAsync, getAllMercsAsync } from "../../service/merc";
 import Modal from "../../component/Modal";
 import MercCard from "../../component/MercCard";
 import MercToCreateForm from "../../component/MercToCreateForm";
+import {message} from "../../service/notification";
 
 const Merc = () => {
     const [mercs, setMercs] = useState([])
@@ -18,7 +19,7 @@ const Merc = () => {
                 );
                 setMercs(mercsSorted);
             })
-            .catch(e => alert(`[Error] : ${e}`));
+            .catch(e => message().error(e));
     }, [])
 
     useEffect(() => setIsValid(!!form.nickname && form.legalAge > 0), [form]);
@@ -26,12 +27,12 @@ const Merc = () => {
     const createMerc = () => {
         createMercAsync(form.nickname, form.legalAge)
             .then(res => setMercs([res.data, ...mercs]))
-            .catch(e => alert(`[Error] : ${e}`))
+            .catch(e => message().error(e))
             .finally(() => setModalVisibility(false));
     }
 
     const onModalSubmit = () => {
-        !isValid ? alert("You need to enter a nickname and a age") : createMerc();
+        !isValid ? message().warning("You need to enter a nickname and legal age") : createMerc();
     }
 
     return (

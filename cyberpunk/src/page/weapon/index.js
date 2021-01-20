@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {getAllWeaponsAsync} from "../../service/weapon";
 import WeaponCard from "../../component/WeaponCard";
 import {getAllMercsAsync} from "../../service/merc";
+import {message} from "../../service/notification";
 
 const Weapon = () => {
     const [weapons, setWeapons] = useState([]);
@@ -13,7 +14,7 @@ const Weapon = () => {
 
         getAllMercsAsync()
             .then((res) => setMercs(res.data))
-            .catch(e => alert(`[Error]: ${e}`));
+            .catch(e => message().error(e));
     }, [])
 
     return (

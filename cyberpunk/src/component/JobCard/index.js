@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PropTypes from "prop-types";
+import { message } from "../../service/notification";
 import MercsSelection from "../MercsSelection";
 import JobFightDialog from "../JobFightDialog";
 
@@ -10,12 +11,12 @@ const JobCard = ({job, mercs, onJobAvailabilityChange}) => {
 
     const fight = () => {
         if (!job.isAvailable) {
-            alert("You can't launch the job because he is unavailable.");
+            message().error("You can't launch the job because he is unavailable.");
             return;
         }
 
         if (!mercSelected) {
-            alert("You need to select a merc before launch the job !");
+            message().error("You need to select a merc before launch the job !");
             return;
         }
 

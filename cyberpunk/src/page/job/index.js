@@ -4,6 +4,7 @@ import { getAllMercsAsync } from "../../service/merc";
 import JobCard from "../../component/JobCard";
 import Modal from "../../component/Modal";
 import JobToCreateForm from "../../component/JobToCreateForm";
+import {message} from "../../service/notification";
 
 const Jobs = () => {
     const [jobs, setJobs] = useState([]);
@@ -20,11 +21,11 @@ const Jobs = () => {
                 );
                 setJobs(jobsSorted);
             })
-            .catch(e => alert(`[Error]: ${e}`));
+            .catch(e => message().error(e));
 
         getAllMercsAsync()
             .then((res) => setMercs(res.data))
-            .catch(e => alert(`[Error]: ${e}`));
+            .catch(e => message().error(e));
     }, []);
 
     useEffect(() => {
@@ -37,13 +38,13 @@ const Jobs = () => {
     }, [jobToCreate]);
 
     const modalSubmit = () => {
-        !isJobToCreateValid ? alert("Sorry but it's not a valid form") : createJob();
+        !isJobToCreateValid ? message().error("Sorry but it's not a valid form") : createJob();
     };
 
     const createJob = () => {
         createJobAsync(jobToCreate)
             .then(res => setJobs([res.data, ...jobs]))
-            .catch(e => alert(`[Error] : ${e}`))
+            .catch(e => message().error(e))
             .finally(() => setModalVisibility(false))
     }
 

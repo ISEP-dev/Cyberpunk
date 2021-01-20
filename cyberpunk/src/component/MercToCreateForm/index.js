@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import PropTypes from "prop-types";
 import CyberpunkInput from "../CyberpunkInput";
+import {message} from "../../service/notification";
 
 const MercToCreateForm = ({ onFormChange }) => {
     const [formChange, setFormChange] = useState({ nickname: "", legalAge: 0 });
@@ -14,7 +15,7 @@ const MercToCreateForm = ({ onFormChange }) => {
 
     const handleLegalAgeChange = (legalAge) => {
         if (legalAge <= 0) {
-            alert("It's not a valid age.. !");
+            message().error("It's not a valid age.. !");
         }
         setFormChange({...formChange, legalAge})
     }

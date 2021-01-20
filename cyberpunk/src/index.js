@@ -12,12 +12,9 @@ import Job from "./page/job/";
 import LocalAuth from "./page/local-auth";
 import Navigation, {tabsEnum} from "./component/Navigation";
 import Footer from "./component/Footer";
-import './index.css';
-import '@fortawesome/fontawesome-free/css/all.min.css'
-import LocalAuth from "./page/local-auth";
-import Footer from "./component/Footer";
-import {authRoutePath, isAlreadyRegistered} from "./service/local-auth";
 import Notifications from "./component/Notifications";
+
+import './index.css';
 
 const initAxios = () => {
     axios.defaults.baseURL = "http://localhost:8081"

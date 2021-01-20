@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import PropTypes from "prop-types";
 import { getFixerNameConnected } from "../../service/local-auth";
 import CyberpunkInput from "../CyberpunkInput";
+import {message} from "../../service/notification";
 
 const JobToCreateForm = ({onFormChange}) => {
     const [formChange, setFormChange] = useState({
@@ -20,13 +21,13 @@ const JobToCreateForm = ({onFormChange}) => {
 
     const handleHenchmenCountChange = (henchmenCount) => {
         if (henchmenCount < 0) {
-            alert("Henchmen is inferior at 0");
+            message().warning("Henchmen is inferior at 0");
         }
         setFormChange({...formChange, henchmenCount});
     };
     const handleRewardChange = (reward) => {
         if (reward <= 0) {
-            alert("Reward must be higher than 0");
+            message().warning("Reward must be higher than 0");
         }
 
         setFormChange({...formChange, reward});

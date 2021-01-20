@@ -7,6 +7,7 @@ import FightComments from "../FightComments";
 import background from '../../asset/launch-game.gif';
 import backgroundAfterVictory from '../../asset/victory-job.gif';
 import backgroundAfterDefeat from '../../asset/defeat-job.gif';
+import {message} from "../../service/notification";
 
 const JobFightDialog = ({visibility, merc, job, onClose}) => {
     const [isPlayed, setIsPlayed] = useState(false);
@@ -22,8 +23,8 @@ const JobFightDialog = ({visibility, merc, job, onClose}) => {
     useEffect(() => {
         if (!mercAfterJob.isAlive) {
             killMercAsync(mercAfterJob.id)
-                .then(() => alert(`${mercAfterJob.nickname} met the death..`))
-                .catch(e => alert(e))
+                .then(() => message().info(`${mercAfterJob.nickname} met the death..`))
+                .catch(e => message().error(e))
         }
     }, [mercAfterJob]);
 
@@ -35,7 +36,7 @@ const JobFightDialog = ({visibility, merc, job, onClose}) => {
                 setMercAfterJob(mercAfterJob);
             })
             .catch(e => {
-                alert(`Impossible to launch the job : ${e}`);
+                message().error(`Impossible to launch the job : ${e}`);
                 onClose(job);
             })
             .finally(() => {
@@ -45,8 +46,8 @@ const JobFightDialog = ({visibility, merc, job, onClose}) => {
 
     const earnEddies = () => {
         completeJobAsync(job.id, mercAfterJob.id)
-            .then(() => alert("Good job, your eddies are in your pocket !"))
-            .catch(e => alert(e))
+            .then(() => message().success("Good job, your eddies are in your pocket !"))
+            .catch(e => message().error(e))
             .finally(() => {
                 setIsFightEnded(false);
                 onClose({...job, isAvailable: false});
