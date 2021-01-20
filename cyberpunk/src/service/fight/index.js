@@ -1,6 +1,5 @@
 import Henchmen from "../../model/henchmen";
 import Merc from "../../model/merc";
-import {message} from "../notification";
 
 const getHenchmens = (henchmenCount) => {
     let henchmens = [];
@@ -19,7 +18,6 @@ const removeHenchmenKilled = (henchmensToFight, henchmenKilled) =>
     henchmensToFight.filter(h => henchmenKilled.id !== h.id);
 
 export const launchFightAsync = async (merc, weapon, job, setComments) => {
-    message().info("The fight will start very soon...")
     const mercAsFighter = new Merc(merc.id, merc.nickname, weapon);
     let henchmens = getHenchmens(job.henchmenCount);
 

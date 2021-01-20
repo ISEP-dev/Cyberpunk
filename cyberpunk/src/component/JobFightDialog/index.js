@@ -31,6 +31,7 @@ const JobFightDialog = ({visibility, merc, job, onClose}) => {
 
     const play = () => {
         setIsPlayed(true);
+        message().info("The fight will start very soon...")
         launchFightAsync(merc, merc.weapon, job, handleComments, setIsLoading)
             .then(mercAfterJob => {
                 setMercAfterJob(mercAfterJob);
