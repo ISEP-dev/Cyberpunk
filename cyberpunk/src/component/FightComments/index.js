@@ -1,4 +1,4 @@
-import {fightCommentEnum} from "../../model/fightComment";
+import { fightCommentEnum } from "../../model/fightComment";
 import PropTypes from "prop-types";
 
 const FightComments = ({ comments }) => {
@@ -8,7 +8,7 @@ const FightComments = ({ comments }) => {
         {
             !!comments.length && comments.map((c, i) => {
                 if (!c) {
-                    return;
+                    return "";
                 }
 
                 switch (c.fightCommentEnum.value) {
@@ -38,6 +38,8 @@ const FightComments = ({ comments }) => {
                                 {c.enemyName} die !
                             </span>
                         )
+                    default:
+                        return ""
                 }
             })
         }
