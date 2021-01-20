@@ -32,6 +32,7 @@ const Jobs = () => {
         const isValid = !!jobToCreate.title
             && !!jobToCreate.description
             && !!jobToCreate.fixer
+            && !!jobToCreate.henchmenCount
             && jobToCreate.henchmenCount >= 0
             && jobToCreate.reward > 0;
         setIsValid(isValid);
