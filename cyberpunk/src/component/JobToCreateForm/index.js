@@ -21,8 +21,9 @@ const JobToCreateForm = ({onFormChange}) => {
 
     const handleHenchmenCountChange = (henchmenCount) => {
         if (henchmenCount < 0) {
-            message().warning("Henchmen is inferior at 0");
+            message().warning("Henchmen must be superior at 0");
         }
+
         setFormChange({...formChange, henchmenCount});
     };
     const handleRewardChange = (reward) => {

@@ -25,7 +25,7 @@ initAxios()
 ReactDOM.render(
     <main className="main-content h-screen overflow-y-auto">
         <React.StrictMode>
-            <Router basename="/">
+            <Router>
                 <Navigation/>
                 <Notifications/>
                 <section className="mt-20">
@@ -34,8 +34,8 @@ ReactDOM.render(
                         <Route path={tabsEnum.WEAPONS.path} component={redirectTo(Weapon)}/>
                         <Route path={tabsEnum.MERCENARIES.path} component={redirectTo(Merc)}/>
                         <Route path={authRoutePath} component={LocalAuth}/>
-                        <Route path="*">
-                            <Redirect to={isAlreadyRegistered() ? tabsEnum.MERCENARIES : authRoutePath}/>
+                        <Route path="/">
+                            <Redirect to={isAlreadyRegistered() ? tabsEnum.MERCENARIES.path : authRoutePath}/>
                         </Route>
                     </Switch>
                 </section>

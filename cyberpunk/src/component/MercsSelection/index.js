@@ -1,16 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { getMercByIdAsync } from "../../service/merc";
 import { message } from "../../service/notification";
 
 const MercsSelection = ({ onSelectMerc, mercSelected, mercs, isDisabled, className }) => {
+    const [mercsFiltered, setMercsFiltered] = useState([]);
     const [isDropdownVisible, setDropdownVisible] = useState(false);
+    const [search, setSearch] = useState("");
+    let dropdownRef = useRef();
+
+    useEffect(() => {
+        const mercsAlived = mercs.filter(m => m.isAlive);
+        const mercsFilteredBySearch = !search
+            ? mercsAlived
+            : mercsAlived.filter(c => c.nickname.toLowerCase().includes(search.toLowerCase()));
+        setMercsFiltered(mercsFilteredBySearch);
+    }, [mercs, search]);
+
+    useEffect(() => {
+        window.document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            window.document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [])
 
     const handleSelectMerc = (idMerc) => {
         setDropdownVisible(!isDropdownVisible);
         getMercByIdAsync(idMerc)
             .then(merc => onSelectMerc(merc))
             .catch(e => message().error(e));
+    }
+
+    const handleClickOutside = (e) => {
+        const isOutsideClicked = !dropdownRef.current.contains(e.target);
+        if (isOutsideClicked) {
+            setDropdownVisible(false);
+        }
     }
 
     return (
@@ -30,10 +55,16 @@ const MercsSelection = ({ onSelectMerc, mercSelected, mercs, isDisabled, classNa
                         <i className={`ml-auto fas ${isDropdownVisible ? "fa-chevron-up" : "fa-chevron-down" } text-gray-400`}/>
                 </button>
 
-                <div className={`absolute mt-1 w-full rounded-md bg-white z-10 shadow-lg ${!isDropdownVisible ? "hidden" : "" }`}>
+                <div ref={dropdownRef} className={`absolute mt-1 w-full rounded-md bg-white z-10 shadow-lg ${!isDropdownVisible ? "hidden" : "" }`}>
+                    <label className="relative">
+                        <input className="text-gray-900 outline-none border-b-1 border-gray-200 p-2 w-full"
+                               type="text"
+                               onChange={e => setSearch(e.target.value)} value={search}/>
+                        <i className="fas fa-search absolute top-1 right-2 text-gray-900"/>
+                    </label>
                     <ul className="max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
                         {
-                            mercs.map((merc, i) => (
+                            mercsFiltered.map((merc, i) => (
                                 <li key={i}
                                     onClick={() => handleSelectMerc(merc.id)}
                                     className="text-gray-900 hover:text-white hover:bg-gray-800 cursor-pointer select-none relative py-2 pl-3 pr-9">

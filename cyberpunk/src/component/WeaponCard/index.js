@@ -24,29 +24,26 @@ const WeaponCard = ({weapon, mercs}) => {
     }
 
     return (
-        <div key={weapon.id}
-             className="flex flex-col justify-between bg-gray-800 shadow-lg sm:rounded-lg w-96 p-6 m-4 text-white">
-            <div>
-                <div className='flex justify-center mb-2'>
-                    <h1 className='font-bold underline '>{weapon.name}</h1>
+        <div key={weapon.id} className="flex flex-col items-center justify-between bg-gray-800 shadow-lg sm:rounded-lg w-96 p-6 m-4 text-white">
+            <h1 className="text-xl truncate font-bold">
+                { weapon.name }
+                <span className="text-yellow-400 ml-2"> (€$ {weapon.price})</span>
+            </h1>
+            <p className="mt-4 text-justify">{ weapon.description }</p>
+            <div className="mb-3 w-full">
+                <div className="flex justify-between mt-2">
+                    <p className="text-sm w-1/5">Damage</p>
+                    <ProgressBar number={ weapon.damage } color={"red"} unity="HP"/>
                 </div>
-                <p>{weapon.description}</p>
-            </div>
-            <div className="mt-3">
-                <div className="flex justify-between">
-                    <p className='text-sm w-1/5'>Damage</p>
-                    <ProgressBar number={weapon.damage} color={"red"}/>
+                <div className="flex justify-between mt-2">
+                    <p className="text-sm w-1/5">Accuracy</p>
+                    <ProgressBar number={ weapon.accuracy } color={"blue"} unity="%"/>
                 </div>
-                <div className="flex justify-between">
-                    <p className='text-sm w-1/5'>Accuracy</p>
-                    <ProgressBar number={weapon.accuracy} color={"blue"}/>
+                <div className="flex justify-between mt-2">
+                    <p className="text-sm w-1/5">Firerate</p>
+                    <ProgressBar number={ weapon.firerate } color={"green"} unity="x"/>
                 </div>
-                <div className="flex justify-between">
-                    <p className='text-sm w-1/5'>Firerate</p>
-                    <ProgressBar number={weapon.firerate * 10} color={"green"}/>
-                </div>
-                <p>Price : <span className="text-yellow-400">{weapon.price} €$</span></p>
-                <div className='flex mt-2 justify-between'>
+                <div className="flex mt-4 justify-between">
                     <MercsSelection className="w-full mr-2"
                                     mercs={mercs}
                                     onSelectMerc={merc => setMercSelected(merc)}

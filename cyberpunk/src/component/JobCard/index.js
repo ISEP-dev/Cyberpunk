@@ -16,7 +16,7 @@ const JobCard = ({job, mercs, onJobAvailabilityChange}) => {
         }
 
         if (!mercSelected) {
-            message().error("You need to select a merc before launch the job !");
+            message().warning("You need to select a merc before launch the job !");
             return;
         }
 
@@ -25,6 +25,7 @@ const JobCard = ({job, mercs, onJobAvailabilityChange}) => {
 
     const closeJobFightDialog = (jobUpdated) => {
         setIsFightDialogVisible(false);
+        setMercSelected(null);
         if (jobUpdated.isAvailable) {
             return;
         }
