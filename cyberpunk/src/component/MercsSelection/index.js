@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { getMercByIdAsync } from "../../service/merc";
+import { message } from "../../service/notification";
 
 const MercsSelection = ({ onSelectMerc, mercSelected, mercs, isDisabled, className }) => {
     const [isDropdownVisible, setDropdownVisible] = useState(false);
@@ -9,7 +10,7 @@ const MercsSelection = ({ onSelectMerc, mercSelected, mercs, isDisabled, classNa
         setDropdownVisible(!isDropdownVisible);
         getMercByIdAsync(idMerc)
             .then(merc => onSelectMerc(merc))
-            .catch(e => console.log(e));
+            .catch(e => message().error(e));
     }
 
     return (

@@ -11,7 +11,7 @@ const MercToCreateForm = ({ onFormChange }) => {
             return;
         }
         onFormChange(formChange);
-    }, [formChange]);
+    }, [formChange, onFormChange]);
 
     const handleLegalAgeChange = (legalAge) => {
         if (legalAge <= 0) {

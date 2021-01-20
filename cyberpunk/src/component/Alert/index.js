@@ -26,7 +26,7 @@ const Alert = ({text, type, timeout}) => {
         return () => {
             clearTimeout(timer)
         }
-    }, [visibility])
+    }, [visibility, timeout, type])
 
     return (
         <div

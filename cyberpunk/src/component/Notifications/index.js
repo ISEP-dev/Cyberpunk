@@ -12,13 +12,11 @@ const Notifications = () => {
 
     return (
         <div className="flex flex-col fixed bottom-5 right-5 z-20 w-full">
-            {
-                notifications.map((n, i) => {
-                    if (!!n) {
-                        return <Alert key={i} text={n.text} type={n.type} timeout={n.timeout}/>
-                    }
-                })
-            }
+        {
+            notifications.map((n, i) =>
+                !n ? "" : <Alert key={i} text={n.text} type={n.type} timeout={n.timeout}/>
+            )
+        }
         </div>
     )
 
