@@ -30,7 +30,7 @@ const LocalAuth = () => {
                     <div>
                         <div className="mt-1 relative shadow-sm text-black mt-72">
                             <label className="text-white text-xs">
-                                Said me the name to write on your grave when you will be die *
+                                Tell me your name, I will write it on your grave when you will be dead *
                             </label>
                             <input type="text" name="price" id="price" onChange={e => setFixerName(e.target.value)}
                                    required
