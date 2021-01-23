@@ -44,7 +44,7 @@ Alert.defaultProps = {
 
 Alert.propTypes = {
     text: PropTypes.string.isRequired,
-    type: PropTypes.PropTypes.oneOf([NotificationType.success, NotificationType.error, NotificationType.warning, NotificationType.info]).isRequired,
+    type: PropTypes.oneOf([NotificationType.success, NotificationType.error, NotificationType.warning, NotificationType.info]).isRequired,
     timeout: PropTypes.number.isRequired,
 }
 
