@@ -6,7 +6,7 @@ import ProgressBar from "../ProgressBar";
 import { message } from "../../service/notification";
 
 const WeaponCard = ({weapon, mercs}) => {
-    const [mercSelected, setMercSelected] = useState("");
+    const [mercSelected, setMercSelected] = useState({});
 
     const buy = () => {
         if (!mercSelected) {
@@ -18,9 +18,9 @@ const WeaponCard = ({weapon, mercs}) => {
             return;
         }
 
-        updateMercWeaponAsync(mercSelected.id, weapon.id).then(() => {
-            message().success(mercSelected.nickname + " bought " + weapon.name);
-        });
+        updateMercWeaponAsync(mercSelected.id, weapon.id)
+            .then(() => message().success(mercSelected.nickname + " bought " + weapon.name))
+            .catch(e => message().error(e));
     }
 
     return (
