@@ -21,16 +21,14 @@ const JobFightDialog = ({ visibility, merc, job, onClose, onMercSelectedDead }) 
 
     const handleComments = useCallback((commentsToAdd) => setNewComments(commentsToAdd), []);
 
-    useEffect(() => {
-        if (!!mercAfterJob && !mercAfterJob.isAlive) {
-            killMercAsync(mercAfterJob.id)
-                .then(() => {
-                    message().info(`${mercAfterJob.nickname} met the death..`);
-                    onMercSelectedDead();
-                })
-                .catch(e => message().error(e))
-        }
-    }, [mercAfterJob]);
+    const killMerc = (mercAfterJob) => {
+        killMercAsync(mercAfterJob.id)
+            .then(() => {
+                message().info(`${mercAfterJob.nickname} met the death..`);
+                onMercSelectedDead();
+            })
+            .catch(e => message().error(e))
+    }
 
     const play = () => {
         setIsPlayed(true);
@@ -39,6 +37,9 @@ const JobFightDialog = ({ visibility, merc, job, onClose, onMercSelectedDead }) 
             .then(mercAfterJob => {
                 setMercAfterJob(mercAfterJob);
                 setIsFightEnded(true);
+                if (!!mercAfterJob && !mercAfterJob.isAlive) {
+                    killMerc(mercAfterJob);
+                }
             })
             .catch(e => {
                 message().error(`Impossible to launch the job : ${e}`);
