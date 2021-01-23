@@ -20,10 +20,10 @@ const JobToCreateForm = ({onFormChange}) => {
     const handleFixerChange = (fixer) => setFormChange({...formChange, fixer });
 
     const handleHenchmenCountChange = (henchmenCount) => {
-        if (henchmenCount < 0) {
-            message().warning("Henchmen count must be superior or equals at 0");
+        if (henchmenCount < 0 || henchmenCount > 10000) {
+            message().warning("Henchmen count must be between 0 and 10000");
         }
-        
+
         setFormChange({...formChange, henchmenCount});
     };
 

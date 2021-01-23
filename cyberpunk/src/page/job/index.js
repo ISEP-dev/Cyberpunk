@@ -38,6 +38,7 @@ const Jobs = () => {
             && !!jobToCreate.fixer
             && !!jobToCreate.henchmenCount
             && jobToCreate.henchmenCount >= 0
+            && jobToCreate.henchmenCount <= 10000
             && jobToCreate.reward > 0;
         setIsValid(isValid);
     }, [jobToCreate]);
